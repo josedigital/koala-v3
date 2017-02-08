@@ -1,11 +1,14 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
+
 import SavedJobsList from '../../shared/components/SavedJobsList/SavedJobsList'
+import SearchResults from '../../shared/components/Search/SearchResults'
+import NewNote from '../../shared/components/Notes/NewNote'
+
 import AuthService from '../../utils/AuthService'
-import { checkUser, createUser, isEmpty, jobHelpers } from '../../utils/helpers'
+import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
 import styles from "./Dashboard.css";
 
-import SearchResults from '../../shared/components/Search/SearchResults'
 
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
@@ -34,6 +37,8 @@ class Dashboard extends Component {
     this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.showHideSearch = this.showHideSearch.bind(this)
+    this.viewJob = this.viewJob.bind(this)
+    this.saveNote = this.saveNote.bind(this)
 
   }
 
@@ -105,7 +110,17 @@ class Dashboard extends Component {
         })
         this.render()
       }
-    }.bind(this));
+    }.bind(this))
+  }
+
+  viewJob (jobId) {
+    console.log(jobId)
+  }
+
+  saveNote (content, jobId, noteCategory) {
+    console.log(content, jobId)
+    noteHelpers.saveNote(this.state.profile.email, jobId, noteCategory, content)
+      .then( (response) => { console.log(response) })
   }
 
 
@@ -123,33 +138,44 @@ class Dashboard extends Component {
 
 
 
-  render () {
-    const { profile } = this.state
-     
+  render () {     
     return (
-      <div className="Grid Dashboard">
-        <div className="Cell four">
-          left
-          {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
-          {
-            this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} deleteJob={this.deleteJob} />
-          }
-          
-        </div>
-        <div className="Cell four">
-          center
-          
-          
-          <p><a href="" onClick={this.showHideSearch}>New Job Search</a></p>
-          {
-            this.state.search_visible
-              ? <SearchResults saveJob={this.saveJob} classes={'animated fadeInDown'} />
-              : null
-          }
-          
-        </div>
-        <div className="Cell four">
-          right
+      <div className="Dashboard">
+        {
+          this.props.params.jobid
+            ? <h1>{this.props.params.jobid}</h1>
+            : null
+        }
+        <div className="Grid Dashboard__content">
+          <div className="Cell four">
+            left
+            {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
+            {
+              this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} />
+            }
+            
+          </div>
+          <div className="Cell four">
+            center
+            
+            <p><a href="" onClick={this.showHideSearch}>New Job Search</a></p>
+            {
+              this.state.search_visible
+                ? <SearchResults saveJob={this.saveJob} classes={'animated fadeInDown'} />
+                : null
+            }
+
+            {
+              this.props.params.jobid
+                ? <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
+                : null
+            }
+            
+            
+          </div>
+          <div className="Cell four">
+            right
+          </div>
         </div>
         
       </div>

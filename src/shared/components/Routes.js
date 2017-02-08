@@ -20,6 +20,7 @@ export default (
     <IndexRoute component={Dashboard} onEnter={requireAuth} />
     <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
     <Route path="login" component={Login} />
+    <Route path="/dashboard/:jobid" component={Dashboard} />
     {/*<Route path="about" component={AboutPage} />*/}
   </Route>
 );
