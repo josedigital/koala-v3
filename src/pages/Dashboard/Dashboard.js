@@ -50,7 +50,6 @@ class Dashboard extends Component {
   }
 
   componentWillMount () {
-    console.log('profile', this.state.profile)
     if (this.state.profile) {
       this.getSavedJobs(this.state.profile.email)
       checkUser(this.state.profile.nickname)
@@ -126,7 +125,6 @@ class Dashboard extends Component {
 
   render () {
     const { profile } = this.state
-    console.log(profile, this.state)
      
     return (
       <div className="Grid Dashboard">
