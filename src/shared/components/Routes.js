@@ -21,6 +21,7 @@ export default (
     <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
     <Route path="login" component={Login} />
     <Route path="/dashboard/:jobid" component={Dashboard} />
+    <Route path="/dashboard/:jobid/:noteid" component={Dashboard} />
     {/*<Route path="about" component={AboutPage} />*/}
   </Route>
 );

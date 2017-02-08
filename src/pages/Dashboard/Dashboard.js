@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import SavedJobsList from '../../shared/components/SavedJobsList/SavedJobsList'
 import SearchResults from '../../shared/components/Search/SearchResults'
 import NewNote from '../../shared/components/Notes/NewNote'
+import NoteList from '../../shared/components/Notes/NoteList'
 
 import AuthService from '../../utils/AuthService'
 import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
@@ -24,7 +25,8 @@ class Dashboard extends Component {
       saved_jobs: [],
       status: REQUEST,
       message: '',
-      search_visible: false
+      search_visible: false,
+      job_notes: []
     }
     // listen to profile_updated events to update internal state
     props.auth.on('profile_updated', (newProfile) => {
@@ -39,7 +41,8 @@ class Dashboard extends Component {
     this.showHideSearch = this.showHideSearch.bind(this)
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
-
+    this.getJobNotes = this.getJobNotes.bind(this)
+    
   }
 
   static contextTypes = {
@@ -65,6 +68,26 @@ class Dashboard extends Component {
         })
     }
   }
+
+  
+  componentDidMount () {
+    if (this.props.params.jobid) {
+      this.getJobNotes(this.props.params.jobid)
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.params.jobid) {
+      this.getJobNotes(nextProps.params.jobid)
+    }
+  }
+  
+  // componentDidUpdate (nextProps, nextState) {
+  //   console.log('updated', nextProps)
+  //   // this.getJobNotes(nextProps.params.jobid)
+  // }
+  
+  
 
 
 
@@ -132,6 +155,21 @@ class Dashboard extends Component {
     })
   }
 
+  getJobNotes (jobId) {
+    console.log('getJobNotes fired')
+    noteHelpers.getNotes(jobId)
+      .then( (response) => {
+        console.log('notes response', response)
+        this.setState({
+          job_notes: response.data.Notes
+        })
+      })
+  }
+
+  getJobNote (noteId) {
+    console.log(noteId)
+  }
+
 
 
 
@@ -141,6 +179,7 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
+        {console.log(this.props.params)}
         {
           this.props.params.jobid
             ? <h1>{this.props.params.jobid}</h1>
@@ -151,7 +190,7 @@ class Dashboard extends Component {
             left
             {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
             {
-              this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} />
+              this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} getJobNotes={this.getJobNotes} />
             }
             
           </div>
@@ -175,6 +214,12 @@ class Dashboard extends Component {
           </div>
           <div className="Cell four">
             right
+            {
+              this.props.params.jobid
+                ? <NoteList jobNotes={this.state.job_notes} jobId={this.props.params.jobid} /> 
+                : null
+            }
+            
           </div>
         </div>
         
