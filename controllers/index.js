@@ -163,6 +163,15 @@ console.log(job_id)
   })
 });
 
+router.get('/api/job/note/:noteid', function (req, res) {
+  var noteid = req.params.noteid
+  console.log(noteid)
+	Note.findOne({'_id' : noteid}, function (err, obj) {
+    if (err) {res.send(err)} 
+      else {res.send(obj)}
+    }) 
+});
+
 // --- edit Note
 router.put('/api/job/note/edit', function( req, res ) {
   var noteId = req.body.noteId

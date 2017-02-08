@@ -85,6 +85,10 @@ export const noteHelpers = {
     )
   },
 
+  getNote: (noteId) => {
+    return axios.get('/api/job/note/'+noteId)
+  },
+
   // --- EDIT NOTE
   editNote: (noteId, currentNoteValue, editedCategory) => {
     return axios.put('/api/job/note/edit', {

@@ -1,9 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router'
 
-const NoteListItem = ({note}) => {
+const NoteListItem = ({note, jobId, getJobNote}) => {
+  const noteid = note._id
   return (
     <li>
-      {note.noteText}
+      <Link to={`/dashboard/${jobId}/${noteid}`}>
+        {note.noteText}
+      </Link>
     </li>
   )
 }

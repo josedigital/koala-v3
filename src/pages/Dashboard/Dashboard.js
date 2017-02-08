@@ -5,6 +5,7 @@ import SavedJobsList from '../../shared/components/SavedJobsList/SavedJobsList'
 import SearchResults from '../../shared/components/Search/SearchResults'
 import NewNote from '../../shared/components/Notes/NewNote'
 import NoteList from '../../shared/components/Notes/NoteList'
+import Note from '../../shared/components/Notes/Note'
 
 import AuthService from '../../utils/AuthService'
 import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
@@ -26,7 +27,8 @@ class Dashboard extends Component {
       status: REQUEST,
       message: '',
       search_visible: false,
-      job_notes: []
+      job_notes: [],
+      current_note: []
     }
     // listen to profile_updated events to update internal state
     props.auth.on('profile_updated', (newProfile) => {
@@ -42,6 +44,7 @@ class Dashboard extends Component {
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
     this.getJobNotes = this.getJobNotes.bind(this)
+    this.getJobNote = this.getJobNote.bind(this)
     
   }
 
@@ -80,13 +83,12 @@ class Dashboard extends Component {
     if (nextProps.params.jobid) {
       this.getJobNotes(nextProps.params.jobid)
     }
+    if (nextProps.params.noteid) {
+      this.getJobNote(nextProps.params.noteid)
+    }
   }
   
-  // componentDidUpdate (nextProps, nextState) {
-  //   console.log('updated', nextProps)
-  //   // this.getJobNotes(nextProps.params.jobid)
-  // }
-  
+
   
 
 
@@ -168,6 +170,13 @@ class Dashboard extends Component {
 
   getJobNote (noteId) {
     console.log(noteId)
+    noteHelpers.getNote(noteId)
+      .then( (response) => {
+        console.log('this is the note', response)
+        this.setState({
+          current_note: response.data
+        })
+      })
   }
 
 
@@ -204,10 +213,11 @@ class Dashboard extends Component {
                 : null
             }
 
+
             {
-              this.props.params.jobid
-                ? <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
-                : null
+              this.props.params.noteid
+                ? <Note note={this.state.current_note} />
+                : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
             }
             
             
@@ -216,7 +226,7 @@ class Dashboard extends Component {
             right
             {
               this.props.params.jobid
-                ? <NoteList jobNotes={this.state.job_notes} jobId={this.props.params.jobid} /> 
+                ? <NoteList jobNotes={this.state.job_notes} jobId={this.props.params.jobid} getJobNote={this.getJobNote} />
                 : null
             }
             
