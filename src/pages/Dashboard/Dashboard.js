@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
 
+import Header from './Header'
 import SavedJobsList from '../../shared/components/SavedJobsList/SavedJobsList'
 import SearchResults from '../../shared/components/Search/SearchResults'
 import NewNote from '../../shared/components/Notes/NewNote'
@@ -9,7 +10,6 @@ import Note from '../../shared/components/Notes/Note'
 
 import AuthService from '../../utils/AuthService'
 import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
-import styles from "./Dashboard.css";
 
 
 const REQUEST = 'REQUEST'
@@ -188,52 +188,73 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
-        {console.log(this.props.params)}
-        {
-          this.props.params.jobid
-            ? <h1>{this.props.params.jobid}</h1>
-            : null
-        }
-        <div className="Grid Dashboard__content">
-          <div className="Cell four">
-            left
-            {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
-            {
-              this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} getJobNotes={this.getJobNotes} />
-            }
-            
-          </div>
-          <div className="Cell four">
-            center
-            
-            <p><a href="" onClick={this.showHideSearch}>New Job Search</a></p>
-            {
-              this.state.search_visible
-                ? <SearchResults saveJob={this.saveJob} classes={'animated fadeInDown'} />
-                : null
-            }
+        <Header />
+        <div className="Page-wrap">
+          <main role="main">
+            <div className="container">
 
 
-            {
-              this.props.params.noteid
-                ? <Note note={this.state.current_note} />
-                : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
-            }
-            
-            
-          </div>
-          <div className="Cell four">
-            right
-            {
-              this.props.params.jobid
-                ? <NoteList jobNotes={this.state.job_notes} jobId={this.props.params.jobid} getJobNote={this.getJobNote} />
-                : null
-            }
-            
-          </div>
-        </div>
+
+              <div className="Job">
+                {
+                  this.props.params.jobid
+                    ? <div><h3 className="Job__title h1">{this.props.params.jobid}</h3><p className="Job__company h3">KYLMAR Solutions</p><p className="Job__link uppercase"><a href="" className="">View Job</a></p></div>
+                    : null
+                }
+              </div>
+
+              <div className="Grid Dashboard__content">
+                <div className="Cell three">
+                  <div className="Card">
+                    {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
+                    {
+                      this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} getJobNotes={this.getJobNotes} />
+                    }
+                  </div>
+                  
+                </div>
+                <div className="Cell six">
+                  <div className="Card">
+                    <p><a href="" onClick={this.showHideSearch}>New Job Search</a></p>
+                    {
+                      this.state.search_visible
+                        ? <SearchResults saveJob={this.saveJob} classes={'animated fadeInDown'} />
+                        : null
+                    }
+
+
+                    {
+                      this.props.params.noteid
+                        ? <Note note={this.state.current_note} />
+                        : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
+                    }
+                  </div>
+                </div>
+
+
+                <div className="Cell three">
+                  {
+                    this.props.params.jobid
+                      ? <NoteList jobNotes={this.state.job_notes} jobId={this.props.params.jobid} getJobNote={this.getJobNote} />
+                      : null
+                  }
+                  
+                </div>
+              </div>{/* /.Grid */}
         
+
+            </div>{/*<!-- /.container -->*/}
+
+
+
+          </main>
+        </div>{/*<!-- /.Page-wrap -->*/}
+
+
+      {/* /.Dashboard */}
       </div>
+
+
     )
   }
 }
