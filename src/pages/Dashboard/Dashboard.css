@@ -1,11 +1,13 @@
 :global {
-  .Dashboard > .Cell {
+  .Dashboard__content > .Cell {
     height: 100vh;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    position: relative;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
   }
-    .Dashboard > .Cell::-webkit-scrollbar {
+    .Dashboard__content > .Cell::-webkit-scrollbar {
       display: none;
     }
 
