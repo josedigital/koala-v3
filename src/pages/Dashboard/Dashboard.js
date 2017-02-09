@@ -203,7 +203,8 @@ class Dashboard extends Component {
                 }
               </div>
 
-              <div className="Grid Dashboard__content">
+              <p><a href="" className="button button-primary" onClick={this.showHideSearch}>New Job Search</a></p>
+              <div className="Grid top Dashboard__content">
                 <div className="Cell three">
                   <div className="Card">
                     {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
@@ -214,11 +215,11 @@ class Dashboard extends Component {
                   
                 </div>
                 <div className="Cell six">
-                  <div className="Card">
-                    <p><a href="" onClick={this.showHideSearch}>New Job Search</a></p>
+                  
+                    
                     {
                       this.state.search_visible
-                        ? <SearchResults saveJob={this.saveJob} classes={'animated fadeInDown'} />
+                        ? <SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
                         : null
                     }
 
@@ -228,7 +229,7 @@ class Dashboard extends Component {
                         ? <Note note={this.state.current_note} />
                         : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
                     }
-                  </div>
+                  
                 </div>
 
 

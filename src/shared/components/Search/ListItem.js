@@ -8,7 +8,7 @@ const ListItem = ({ result, saveJob, url }) => {
 			<p>{result.location}</p>
 			<a href={result.url} target="_blank" value={url}>Job Description</a>
 			<br />
-			<button onClick={ () => { saveJob(result) } }>Save Job</button>
+			<button className="button button-primary" onClick={ () => { saveJob(result) } }>Save Job</button>
 			<hr/>
 		</div>
 	)

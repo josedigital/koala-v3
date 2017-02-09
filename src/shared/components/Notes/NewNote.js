@@ -36,7 +36,7 @@ class NewNote extends Component {
 
   render () {
     return (
-      <div>
+      <div className="Newnote Card">
         <form onSubmit={ this.handleSubmit }>
           <p><strong>Select a Note Category:</strong></p>
           <Select 
