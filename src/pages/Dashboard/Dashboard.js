@@ -28,7 +28,8 @@ class Dashboard extends Component {
       message: '',
       search_visible: false,
       job_notes: [],
-      current_note: []
+      current_note: [],
+      job_details: []
     }
     // listen to profile_updated events to update internal state
     props.auth.on('profile_updated', (newProfile) => {
@@ -45,7 +46,8 @@ class Dashboard extends Component {
     this.saveNote = this.saveNote.bind(this)
     this.getJobNotes = this.getJobNotes.bind(this)
     this.getJobNote = this.getJobNote.bind(this)
-    
+    this.getJobDetails = this.getJobDetails.bind(this)
+
   }
 
   static contextTypes = {
@@ -81,6 +83,7 @@ class Dashboard extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.jobid) {
+      this.getJobDetails(nextProps.params.jobid)
       this.getJobNotes(nextProps.params.jobid)
     }
     if (nextProps.params.noteid) {
@@ -89,7 +92,15 @@ class Dashboard extends Component {
   }
   
 
-  
+  getJobDetails (jobId) {
+    jobHelpers.getJobDetails(jobId)
+      .then( (response) => {
+        console.log(response.data.title)
+        this.setState({
+          job_details: response.data
+        })
+      })
+  }
 
 
 
@@ -198,7 +209,7 @@ class Dashboard extends Component {
               <div className="Job">
                 {
                   this.props.params.jobid
-                    ? <div><h3 className="Job__title h1">{this.props.params.jobid}</h3><p className="Job__company h3">KYLMAR Solutions</p><p className="Job__link uppercase"><a href="" className="">View Job</a></p></div>
+                    ? <div><h3 className="Job__title h1">{this.state.job_details.title}</h3><p className="Job__company h3">{this.state.job_details.company}</p><p className="Job__link uppercase"><a href={this.state.job_details.url} className="button button-primary" target="_blanks">View Details</a></p></div>
                     : null
                 }
               </div>
