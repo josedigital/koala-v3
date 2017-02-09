@@ -90,20 +90,21 @@ router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
             console.log("Dice Search Reponse");
             if (!error && response.statusCode === 200) {
                 var resultsDice = JSON.parse(response.body);
-                var resultLength = resultsDice.resultItemList.length;
-                console.log("results frm dice" + resultLength);
-                // insert results from dice in to jobsArr
-                for (let i = 0; i < resultLength; i++) {
-                    var jobDice = {
-                        title: resultsDice.resultItemList[i].jobTitle,
-                        company: resultsDice.resultItemList[i].company,
-                        url: resultsDice.resultItemList[i].detailUrl,
-                        location: resultsDice.resultItemList[i].location,
-                        date: resultsDice.resultItemList[i].date
-                    }
-                    jobsArr.push(jobDice);
-                }
-
+                 if(resultsDice.count > 0){
+                    var resultLength = resultsDice.resultItemList.length;
+                    console.log("results frm dice" + resultLength);
+                    // insert results from dice in to jobsArr
+                    for (let i = 0; i < resultLength; i++) {
+                        var jobDice = {
+                            title: resultsDice.resultItemList[i].jobTitle,
+                            company: resultsDice.resultItemList[i].company,
+                            url: resultsDice.resultItemList[i].detailUrl,
+                            location: resultsDice.resultItemList[i].location,
+                            date: resultsDice.resultItemList[i].date
+                        }
+                        jobsArr.push(jobDice);
+                 }
+                 }//end of Dice 0 catch
                 console.log("length of array after adding dice jobs" + jobsArr.length);
                 console.log(jobsArr.length);
                 console.log(indeedUri);
@@ -114,30 +115,32 @@ router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
                         // console.log(response.body);                        
                         if (!error && response.statusCode === 200) {
                             var resultsIndeed = JSON.parse(response.body)
-                            var resLength = resultsIndeed.results.length;
+                            if (resultsIndeed.totalResults > 0){
+                                var resLength = resultsIndeed.results.length;
 
-                            console.log("results frm indeed" + resLength);
+                                console.log("results frm indeed" + resLength);
 
-                            for (let j = 0; j < resLength; j++) {
-                                var jobIndeed = {
-                                    title: resultsIndeed.results[j].jobtitle,
-                                    company: resultsIndeed.results[j].company,
-                                    url: resultsIndeed.results[j].url,
-                                    location: resultsIndeed.results[j].formattedLocation,
-                                    date: resultsIndeed.results[j].date
+                                for (let j = 0; j < resLength; j++) {
+                                    var jobIndeed = {
+                                        title: resultsIndeed.results[j].jobtitle,
+                                        company: resultsIndeed.results[j].company,
+                                        url: resultsIndeed.results[j].url,
+                                        location: resultsIndeed.results[j].formattedLocation,
+                                        date: resultsIndeed.results[j].date
+                                    }
+                                    jobsArr.push(jobIndeed);
                                 }
-                                jobsArr.push(jobIndeed);
-                            }
-                            console.log("length of array after adding indeed jobs" + jobsArr.length);
-                            console.log(jobsArr.length);
-                            console.log("BEFORE RESPONSE" + jobsArr.length);
-                            res.json(jobsArr);
-                            // console.log(jobsArr);
+                                console.log("length of array after adding indeed jobs" + jobsArr.length);
+                                console.log(jobsArr.length);
+                                console.log("BEFORE RESPONSE" + jobsArr.length);
+                                res.json(jobsArr);
+                                // console.log(jobsArr);
+                            }// END of 0 catch for Indeed
                         } else {
                             console.log(error);
                         }
                     });
-
+                
             } else {
                 res.json(error);
             }
