@@ -30,7 +30,7 @@ class SearchResults extends Component {
     // const profile = (this.props.profile) ? this.props.profile : ''
 
     return (
-      <div className="test">
+      <div className={this.state.classes}>
         <SearchForm setSearchResults={this.setSearchResults} />
         {<JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />}
       </div>

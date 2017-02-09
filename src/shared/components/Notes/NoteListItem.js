@@ -4,11 +4,12 @@ import { Link } from 'react-router'
 const NoteListItem = ({note, jobId, getJobNote}) => {
   const noteid = note._id
   return (
-    <li>
-      <Link to={`/dashboard/${jobId}/${noteid}`}>
+    <Link to={`/dashboard/${jobId}/${noteid}`}>
+      <div className="Note Card">
         {note.noteText}
-      </Link>
-    </li>
+      </div>
+    </Link>
+    
   )
 }
 

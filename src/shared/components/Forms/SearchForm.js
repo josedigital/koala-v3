@@ -55,6 +55,7 @@ class SearchForm extends Component {
 
       return (
         <div className="Search-form">
+          <div className="Card">
           <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
             <TextInput 
             classes='test'
@@ -76,7 +77,8 @@ class SearchForm extends Component {
             <div className="form-element">
               <button type="submit">Search</button>
             </div>
-          </form>  
+          </form>
+          </div>
         </div>
       )
     }
