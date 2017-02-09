@@ -144,4 +144,23 @@ router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
         });
 });
 
+router.get('/api/glassdoor/:companyName', function(req, res, next){
+
+    console.log(req.params.companyName);
+
+    var glassdoorUri = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=122079&t.k=f5XFUh4nAoe&action=employers&q="+ req.params.companyName;
+    request({ uri: glassdoorUri },
+             function(error, response, next) {
+                var result =  JSON.parse(response.body)
+                
+                var rating = {
+                    number: result.response.employers[0].overallRating
+                }
+
+                    res.json(rating);        
+    
+             });
+
+})
+
 module.exports = router;

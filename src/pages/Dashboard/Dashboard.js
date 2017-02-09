@@ -9,7 +9,8 @@ import NoteList from '../../shared/components/Notes/NoteList'
 import Note from '../../shared/components/Notes/Note'
 
 import AuthService from '../../utils/AuthService'
-import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
+import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers, getGlassdoorInfo } from '../../utils/helpers'
+
 
 
 const REQUEST = 'REQUEST'
@@ -28,7 +29,8 @@ class Dashboard extends Component {
       search_visible: false,
       job_notes: [],
       current_note: [],
-      job_details: []
+      job_details: [],
+      glassdoorInfo: {}
     }
 
     
@@ -85,7 +87,6 @@ class Dashboard extends Component {
     }
   }
   
-
   getJobDetails (jobId) {
     jobHelpers.getJobDetails(jobId)
       .then( (response) => {
