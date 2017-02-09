@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import TextArea from '../Forms/TextArea'
+import Select from '../Forms/Select'
 
 class NewNote extends Component {
   constructor (props) {
@@ -10,37 +11,48 @@ class NewNote extends Component {
       jobid: '',
       category: ''
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleCategory = this.handleCategory.bind(this)
+    this.handleContent = this.handleContent.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-
-  
-
-  handleChange (e) {
+  handleCategory (e) {
     this.setState({
-      content: e.target.value,
-      jobid: this.props.jobId,
-      category: 'testcat'
+      category: e.target.value
     })
   }
 
-  handleClick (e) {
+  handleContent (e) {
+    this.setState({
+      content: e.target.value,
+      jobid: this.props.jobId
+    })
+  }
+
+  handleSubmit (e) {
     this.props.saveNote(this.state.content, this.state.jobid, this.state.category)
-    this.setState({ content: '', jobid: '' })
+    this.setState({ content: '', jobid: '', category: '' })
   }
 
   render () {
     return (
       <div>
-        <TextArea 
-          label="Add Note"
-          name="new-note"
-          content={this.state.content}
-          controlFunction={this.handleChange} />
-          
-        <button onClick={ this.handleClick }>Save Note</button>
+        <form onSubmit={ this.handleSubmit }>
+          <p><strong>Select a Note Category:</strong></p>
+          <Select 
+            name='category'
+            controlFunction={this.handleCategory}
+            selectedValue={this.state.category}
+            options={['Position Research','Company Information', 'Project Highlights', 'Interview Questions']} />
+          <TextArea
+            label='Write your note below'
+            name='noteText'
+            controlFunction={this.handleContent}
+            content={this.state.content} />
+          <button type="submit">
+            Create Note
+          </button>
+        </form>
       </div>
     )
   }
