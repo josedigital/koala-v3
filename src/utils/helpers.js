@@ -124,7 +124,6 @@ export function jobsApiSearch(searchTerm, searchLocation) {
 
 export function getGlassdoorInfo(companyName){
   return axios.get('/api/glassdoor/' + companyName)
-
 }
 
 export function checkUser(username) {
