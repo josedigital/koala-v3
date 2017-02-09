@@ -35,6 +35,10 @@ export const jobHelpers = {
         })
     },
 
+    getJobDetails: (jobId) => {
+      return axios.get('/api/job/'+jobId)
+    },
+
     // ---  GET JOBS 
     getJobs: (userEmail) => {
         //console.log('#38 helpers userEmail='+userEmail)//good

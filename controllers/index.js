@@ -20,6 +20,14 @@ router.delete('/api/user/delete', function( req, res ) {});
 // ----------------- JOBS --------------------------------
 // --- SAVE JOB & PUSH IT'S REF ID TO THE USER TABLE
 
+router.get('/api/job/:jobid', function (req, res) {
+  var jobid = req.params.jobid
+  Job.findOne({'_id' : jobid}, function (err, obj) {
+  if (err) {res.send(err)} 
+    else {res.send(obj)}
+  }) 
+});
+
 router.post('/api/job/save', function( req, res ) {
   var newJob = new Job (req.body)
   newJob.save(function(error, doc){
