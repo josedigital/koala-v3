@@ -6,6 +6,7 @@ import SearchResults from '../../shared/components/Search/SearchResults'
 import NewNote from '../../shared/components/Notes/NewNote'
 import NoteList from '../../shared/components/Notes/NoteList'
 import Note from '../../shared/components/Notes/Note'
+import NoteEditor from '../../shared/components/Notes/NoteEditor'
 
 import AuthService from '../../utils/AuthService'
 import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
@@ -172,7 +173,7 @@ class Dashboard extends Component {
     console.log(noteId)
     noteHelpers.getNote(noteId)
       .then( (response) => {
-        console.log('this is the note', response)
+        console.log('this is the note', response.data)
         this.setState({
           current_note: response.data
         })
@@ -205,7 +206,7 @@ class Dashboard extends Component {
           </div>
           <div className="Cell four">
             center
-            
+           
             <p><a href="" onClick={this.showHideSearch}>New Job Search</a></p>
             {
               this.state.search_visible
@@ -216,7 +217,7 @@ class Dashboard extends Component {
 
             {
               this.props.params.noteid
-                ? <Note note={this.state.current_note} />
+                ? <NoteEditor note={this.state.current_note} george={this.props.params.noteid} getJobNote={this.getJobNote}/>
                 : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
             }
             
