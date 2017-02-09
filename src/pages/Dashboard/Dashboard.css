@@ -1,9 +1,141 @@
-.Dashboard > .Cell {
-  height: 100vh;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none;
-}
-  .Dashboard > .Cell::-webkit-scrollbar {
-    display: none;
+:global {
+  .Dashboard > .Cell {
+    height: 100vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
   }
+    .Dashboard > .Cell::-webkit-scrollbar {
+      display: none;
+    }
+
+
+  .Background-image {
+    /*background-image: url('./main-bg.jpg');*/
+    background-position: 0 0;
+    background-size: cover;
+    background-attachment: fixed;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    opacity: 0.2;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .Header {
+    background-color: #fff;
+  }
+  .Header > .container {
+    height: 60px;
+  }
+  .Brand h1 {
+    font-size: 3.4rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  .Brand img {
+    height: auto;
+    width: 80%;
+  }
+
+  /* Job */
+  .Job {
+    margin: 4rem 0;
+  }
+  .Job__title {
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    margin-bottom: 10px;
+  }
+  .Job__company {
+    color: rgba(255,255,255,0.8);
+    font-weight: bold;
+    letter-spacing: 0.15rem;
+    margin-bottom: 10px;
+  }
+  .Job__link a {
+    color: #30533F;
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    text-decoration: none;
+  }
+    .Job__link a:hover {
+      color: #000;
+    }
+
+
+
+
+
+
+
+
+
+
+  .Card {
+    background: #fff;
+    box-shadow: 0 5px 30px 0 rgba(0,0,0,0.30);
+    border-radius: 5px;
+    height: 100%;
+    padding: 20px;
+  }
+
+  .Note {
+    height: 240px;
+    margin-bottom: 3.5rem;
+    overflow: hidden;
+    position: relative;
+    transition: all .3s ease-in-out;
+    transform: scale(1);   
+    width: 100%;
+  }
+    .Note:hover {
+      box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+      transform: scale(1.05);
+    }
+  .Note__content {
+    border: none;
+    height: 100px;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+  }
+    .Note__content:focus {
+      border: none;
+    }
+
+  .Note__title {
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+  }
+
+  .Note__bubble {
+    background-color: #ADF2EB;
+    height: 25%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25%;
+  }
+
+
+
+
+
+  footer {
+    background-color: #48E28A;
+    /*border-bottom: 40px solid #564d65;*/
+  }
+
+
+
+
+
+
+}
