@@ -20,9 +20,8 @@ const FAILURE = 'FAILURE'
 class Dashboard extends Component {
   constructor (props) {
     super(props)
-
     this.state = {
-      profile: props.auth.getProfile(),
+      profile: props.profile,
       saved_jobs: [],
       status: REQUEST,
       message: '',
@@ -31,11 +30,6 @@ class Dashboard extends Component {
       current_note: [],
       job_details: []
     }
-    // listen to profile_updated events to update internal state
-    props.auth.on('profile_updated', (newProfile) => {
-      this.setState({profile: newProfile})
-    })
-
 
     
     this.getSavedJobs = this.getSavedJobs.bind(this)
