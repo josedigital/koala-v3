@@ -14,6 +14,8 @@ import CustomJob from '../../shared/components/CustomJob/CustomJob'
 import AuthService from '../../utils/AuthService'
 import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers, getGlassdoorInfo } from '../../utils/helpers'
 
+import extlink from './img/external-link.png'
+
 
 
 const REQUEST = 'REQUEST'
@@ -48,7 +50,7 @@ class Dashboard extends Component {
     this.getJobNotes = this.getJobNotes.bind(this)
     this.getJobNote = this.getJobNote.bind(this)
     this.getJobDetails = this.getJobDetails.bind(this)
-
+    this.logout = this.logout.bind(this)
   }
 
   static contextTypes = {
@@ -219,7 +221,7 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
-        <Header auth={this.props.auth} logout={this.logout} />
+        <Header auth={this.props.auth} logout={this.logout} profile={this.state.profile} />
         <div className="Page-wrap">
           <main role="main">
             <div className="container">
@@ -229,7 +231,7 @@ class Dashboard extends Component {
               <div className="Job">
                 {
                   this.props.params.jobid
-                    ? <div><h3 className="Job__title h1">{this.state.job_details.title}</h3><p className="Job__company h3">{this.state.job_details.company}</p><p className="Job__link uppercase"><a href={this.state.job_details.url} className="button button-primary" target="_blanks">View Details</a></p></div>
+                    ? <div><h3 className="Job__title h1">{this.state.job_details.title} @ {this.state.job_details.company} <a href={this.state.job_details.url} className="Icon__link" target="_blanks"><img src={extlink} className="Icon__img" alt="view job at site" /></a></h3></div>
                     : null
                 }
               </div>

@@ -43,6 +43,11 @@
     height: auto;
     width: 80%;
   }
+  .Profile__img {
+    border-radius: 50%;
+    height: 50px;
+    width: auto;
+  }
 
   /* Job */
   .Job {
@@ -70,6 +75,10 @@
     .Job__link a:hover {
       color: #000;
     }
+  .Icon__img {
+    height: 25px;
+    width: auto;
+  }
 
 
 
