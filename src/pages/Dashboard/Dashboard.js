@@ -152,7 +152,11 @@ class Dashboard extends Component {
   saveNote (content, jobId, noteCategory) {
     console.log(content, jobId)
     noteHelpers.saveNote(this.state.profile.email, jobId, noteCategory, content)
-      .then( (response) => { console.log(response) })
+      .then( (response) => { 
+        this.setState({
+          job_notes: response.data.Notes
+        })
+      })
   }
 
   editNote (noteId, content, category) {
