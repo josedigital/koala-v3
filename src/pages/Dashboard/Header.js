@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 import './Dashboard.css';
 import Koala from './img/Koala-head.png'
@@ -14,28 +15,31 @@ const Header = ({auth, logout, profile, seeSearch, addJob}) => {
       
         <header className="Header">
           <div className="Grid middle container">
-            <div className="Cell four Brand">
+            <div className="Cell six Brand">
               <div className="Grid">
-                <div className="Cell"><img src={Koala} alt="" /></div>
-                <div className="Cell"><h1 className="uppercase">Koala</h1></div>
+                <Link to="/dashboard" className="Cell Grid">
+                  <div className="Cell"><img src={Koala} alt="" /></div>
+                  <div className="Cell"><h1 className="uppercase">Koala</h1></div>
+                </Link>
               </div>              
             </div>
-            <div className="Cell eight right">
-              <div className="Grid">
+            <nav className="Cell six">
+              <div className="Grid middle right">
                 <div className="Cell">
-                  <button onClick={seeSearch}>New Search</button>
+                  <a href="" onClick={seeSearch}>New Search</a>
                 </div>
                 <div className="Cell">
-                  <button onClick={addJob}>Add Custom Job</button>
+                  <a href="" onClick={addJob}>Add a Job</a>
                 </div>
                 <div className="Cell">
-                  {auth.loggedIn ? <button href='/' onClick={ () => logout() }>Logout</button> : ''}
+                  {auth.loggedIn ? <a href='/' onClick={ () => logout() }>Logout</a> : ''}
                 </div>
-                <div className="Cell">
-                  hello, {profile.name} <img src={profile.picture} className="Profile__img" alt="profile picture"/>
+                <div className="Cell Profile">
+                  <img src={profile.picture} className="Profile__img" alt="profile picture"/> 
+                  <span className="Profile__name">hello, {profile.name} </span>
                 </div>
               </div>
-            </div>
+            </nav>
           </div>
         </header>
       

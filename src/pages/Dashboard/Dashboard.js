@@ -253,7 +253,7 @@ class Dashboard extends Component {
               <div className="Job_header">
                 {
                   this.props.params.jobid
-                    ? <div><h3 className="Job__title h1">{this.state.job_details.title} @ {this.state.job_details.company} <a href={this.state.job_details.url} className="Icon__link" target="_blanks"><img src={extlink} className="Icon__img" alt="view job at site" /></a></h3></div>
+                    ? <div><h2 className="Job__title h2">{this.state.job_details.title} @ {this.state.job_details.company} <a href={this.state.job_details.url} className="Icon__link" target="_blanks"><img src={extlink} className="Icon__img" alt="view job at site" /></a></h2></div>
                     : null
                 }
               </div>
@@ -262,14 +262,14 @@ class Dashboard extends Component {
               <div className="Grid top Dashboard__content">
                 <div className="Cell three">
                   <div className="Cardnone">
+                    <h3 className="uppercase">Saved Jobs</h3>
                     {
                       this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} getJobNotes={this.getJobNotes} />
                     }
                   </div>
                   
                 </div>
-                <div className="Cell six">                  
-                    
+                <div className="Cell six">
                     {
                       this.state.search_visible
                         ? <SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
@@ -286,6 +286,7 @@ class Dashboard extends Component {
                       this.props.params.noteid
                         ? <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
                         : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
+                        // : <CustomJob profile={this.props.profile} saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
                     }
                     
                 </div>
