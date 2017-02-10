@@ -46,6 +46,7 @@ class Dashboard extends Component {
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
     this.editNote = this.editNote.bind(this)
+    this.editRefresh = this.editRefresh.bind(this)
     this.deleteNote = this.deleteNote.bind(this)
     this.getJobNotes = this.getJobNotes.bind(this)
     this.getJobNote = this.getJobNote.bind(this)
@@ -92,6 +93,7 @@ class Dashboard extends Component {
       }
       this.getJobDetails(nextProps.params.jobid)
       this.getJobNotes(nextProps.params.jobid)
+      this.editRefresh(nextProps.params.jobid)
 
     }
     if (nextProps.params.noteid) {
@@ -108,7 +110,6 @@ class Dashboard extends Component {
         })
       })
   }
-
 
 
 	saveJob (job) {
@@ -175,7 +176,13 @@ class Dashboard extends Component {
 
   editNote (noteId, content, category) {
     noteHelpers.editNote(noteId, content, category)
-      .then( (response) => { console.log(response) })
+      .then( (response) => { 
+        this.props.params.noteid = undefined
+      })
+  }
+
+  editRefresh (jobId) {
+    this.getJobNotes(jobId)
   }
 
   deleteNote (jobId, noteId) {
@@ -257,7 +264,7 @@ class Dashboard extends Component {
 
                     {
                       this.props.params.noteid
-                        ? <NoteEditor note={this.state.current_note} editNote={this.editNote} />
+                        ? <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
                         : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
                     }
                     
