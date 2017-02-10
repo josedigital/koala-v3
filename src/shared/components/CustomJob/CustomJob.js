@@ -19,20 +19,22 @@ class CustomJob extends React.Component {
     var newState = {}
     newState[e.target.name] = e.target.value
     this.setState(newState)
+   
 	}
 
   handleSubmit(e){
 		e.preventDefault()
-        let userEmail = this.props.profile.email
-		jobHelpers.saveJob(userEmail, this.state.title, this.state.url, this.state.location, this.state.company)
-      .then(function () {
-        console.log("Custom job sent to DB")
-		  }.bind(this));
+     this.props.saveJob(this.state)
+    // let userEmail = this.props.profile.email
+		// jobHelpers.saveJob(userEmail, this.state.title, this.state.url, this.state.location, this.state.company)
+    //   .then(function () {
+    //     console.log("Custom job sent to DB")
+		//   }.bind(this));
 		this.setState({
 			title: '',
 			url: '',
-            company: '',
-            location: ''
+      company: '',
+      location: ''
 		})
 	}
     

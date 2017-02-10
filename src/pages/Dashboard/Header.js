@@ -7,7 +7,7 @@ let bgstyles = {
   backgroundImage: 'url('+bgimg+')'
 }
 
-const Header = ({auth, logout, profile}) => {
+const Header = ({auth, logout, profile, seeSearch, addJob}) => {
   return (
     <div>
       <div className="Background-image" style={bgstyles}></div>
@@ -23,7 +23,13 @@ const Header = ({auth, logout, profile}) => {
             <div className="Cell eight right">
               <div className="Grid">
                 <div className="Cell">
-                  {auth.loggedIn ? <button href='/' onClick={ () => logout() }>logout</button> : ''}
+                  <button onClick={seeSearch}>New Search</button>
+                </div>
+                <div className="Cell">
+                  <button onClick={addJob}>Add Custom Job</button>
+                </div>
+                <div className="Cell">
+                  {auth.loggedIn ? <button href='/' onClick={ () => logout() }>Logout</button> : ''}
                 </div>
                 <div className="Cell">
                   hello, {profile.name} <img src={profile.picture} className="Profile__img" alt="profile picture"/>
