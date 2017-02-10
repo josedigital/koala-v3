@@ -1,5 +1,5 @@
 :global {
-  .Dashboard__content > .Cell {
+  .Dashboard__content > .Cell.six {
     height: 100vh;
     overflow-x: auto;
     overflow-y: auto;
@@ -30,6 +30,11 @@
 
   .Header {
     background-color: #fff;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 50;
   }
   .Header > .container {
     height: 60px;
@@ -39,19 +44,26 @@
     font-weight: bold;
     margin: 0;
   }
-  .Brand img {
+  /*.Brand img {
     height: auto;
-    width: 80%;
-  }
+    max-width: 100%;
+  }*/
   .Profile__img {
     border-radius: 50%;
     height: 50px;
     width: auto;
   }
 
+
+  main {
+    margin-top: 8rem;
+    position: relative;
+    z-index: 10;
+  }
+
   /* Job */
-  .Job {
-    margin: 4rem 0;
+  .Job__header {
+    margin: 1rem 0;
   }
   .Job__title {
     color: #fff;
@@ -105,6 +117,10 @@
 
 
 
+  /* LIsts */
+  .List {
+    list-style: none;
+  }
 
 
 
@@ -116,20 +132,37 @@
     height: 100%;
     padding: 20px;
   }
+  .Job {
+    transition: all .3s ease-in-out;
+    &:hover {
+      box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
 
+  .Job,
   .Note {
     height: auto;
     margin-bottom: 3.5rem;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
     transition: all .3s ease-in-out;
-    transform: scale(1);   
+    transform: scale(1);
     width: 100%;
-  }
-    .Note:hover {
+    &:hover {
       box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
-      /*transform: scale(1.05);*/
+      transform: scale(1.05);
+      .Close {
+        right: -10px;
+        top: -10px;
+      }
     }
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+    
   .Note__content {
     border: none;
     height: 100px;
@@ -156,6 +189,35 @@
   }
   .Note.Card {
     white-space: pre-wrap;
+  }
+  .Note__bubble {
+    background-color: #ADF2EB;
+    height: 5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 5rem;
+  }
+  .Close {
+    border-radius: 50%;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+    color: rgb(255,0,0);
+    height: 3rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 5;
+    width: 3rem;
+    padding: 0;
+    line-height: 0;
+    transition: all .3s ease-in-out;
+    transform: scale(1);   
+    &:hover {
+      background-color: rgba(255,0,0,0.6);
+      box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+      color: #fff;
+      transform: scale(1.25);
+    }
   }
 
 
