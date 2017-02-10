@@ -24,9 +24,14 @@ export default class NoteEditor extends React.Component {
     console.log(nextProps)
   }
 
+  componentDidMount(){
+    this.getPropNote()
+  }
+
   handleEdit (e) {
     e.preventDefault()
     this.props.editNote(this.props.note._id, this.state.content, this.props.note.category)
+    this.props.editRefresh(this.props.jobId)
     console.log("----Note Updated to database----")
   }
 
@@ -35,6 +40,7 @@ export default class NoteEditor extends React.Component {
     this.setState({
       editing: false
     })
+    console.log(this.state.editing)
     this.handleEdit (e);
   }
 
