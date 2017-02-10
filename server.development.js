@@ -30,11 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var controllers = require('./controllers/index');
 
-// app.get('*', function response(req, res) {
-//   res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
-//   res.end();
-// });
-// app.use(express.static(path.join(__dirname, '/dist')))
+
 app.use(middleware)
 app.get(/^(?!.*(api))/, function response(req, res) {
   res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
