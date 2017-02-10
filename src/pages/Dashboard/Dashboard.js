@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
+import {browserHistory} from 'react-router';
 
 import Header from './Header'
 import SavedJobsList from '../../shared/components/SavedJobsList/SavedJobsList'
@@ -130,6 +131,8 @@ class Dashboard extends Component {
       .then(function(data) {
         this.getSavedJobs(email)
       }.bind(this));
+
+      browserHistory.push('/dashboard');
   }
 
 
