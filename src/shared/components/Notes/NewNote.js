@@ -37,19 +37,19 @@ class NewNote extends Component {
 
   render () {
     return (
-      <div className="Newnote Card">
+      <div className="Newnote Cardnone">
         <form onSubmit={ this.handleSubmit }>
-          <p><strong>Select a Note Category:</strong></p>
-          <Select 
-            name='category'
-            controlFunction={this.handleCategory}
-            selectedValue={this.state.category}
-            options={['Position Research','Company Information', 'Project Highlights', 'Interview Questions']} />
           <TextArea
             label='Write your note below'
             name='noteText'
             controlFunction={this.handleContent}
             content={this.state.content} />
+            <p><strong>Select a Note Category:</strong></p>
+          <Select 
+            name='category'
+            controlFunction={this.handleCategory}
+            selectedValue={this.state.category}
+            options={['Position Research','Company Information', 'Project Highlights', 'Interview Questions']} />
           <button type="submit">
             Create Note
           </button>

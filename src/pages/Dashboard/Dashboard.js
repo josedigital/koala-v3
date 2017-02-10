@@ -163,6 +163,7 @@ class Dashboard extends Component {
         this.setState({
           job_notes: response.data.Notes
         })
+        this.getJobNotes(jobId)
       })
   }
 
@@ -232,7 +233,7 @@ class Dashboard extends Component {
               <p><a href="" className="button button-primary" onClick={this.showHideSearch}>New Job Search</a></p>
               <div className="Grid top Dashboard__content">
                 <div className="Cell three">
-                  <div className="Card">
+                  <div className="Cardnone">
                     {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
                     {
                       this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} getJobNotes={this.getJobNotes} />
