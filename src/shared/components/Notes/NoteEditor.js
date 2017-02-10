@@ -31,7 +31,6 @@ export default class NoteEditor extends React.Component {
   }
 
   finishEditing (e) {
-    let editing = this.state.editing;
     this.setState({
       editing: false
     })

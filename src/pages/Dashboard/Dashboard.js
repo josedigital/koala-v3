@@ -32,6 +32,7 @@ class Dashboard extends Component {
       status: REQUEST,
       message: '',
       search_visible: false,
+      add_job: false,
       job_notes: [],
       current_note: [],
       job_details: [],
@@ -43,6 +44,7 @@ class Dashboard extends Component {
     this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.showHideSearch = this.showHideSearch.bind(this)
+    this.showHideAddJob = this.showHideAddJob.bind(this)
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
     this.editNote = this.editNote.bind(this)
@@ -190,6 +192,13 @@ class Dashboard extends Component {
     })
   }
 
+  showHideAddJob (e) {
+    e.preventDefault()
+    this.setState({
+      add_job: !this.state.add_job
+    })
+  }
+
   getJobNotes (jobId) {
     console.log('getJobNotes fired')
     noteHelpers.getNotes(jobId)
@@ -221,7 +230,7 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
-        <Header auth={this.props.auth} logout={this.logout} profile={this.state.profile} />
+        <Header auth={this.props.auth} logout={this.logout} profile={this.state.profile} seeSearch={this.showHideSearch} addJob={this.showHideAddJob} />
         <div className="Page-wrap">
           <main role="main">
             <div className="container">
@@ -236,7 +245,7 @@ class Dashboard extends Component {
                 }
               </div>
 
-              <p><a href="" className="button button-primary" onClick={this.showHideSearch}>New Job Search</a></p>
+             
               <div className="Grid top Dashboard__content">
                 <div className="Cell three">
                   <div className="Cardnone">
@@ -251,6 +260,11 @@ class Dashboard extends Component {
                     {
                       this.state.search_visible
                         ? <SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
+                        : null
+                    }
+                    {
+                      this.state.add_job
+                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
                         : null
                     }
 
