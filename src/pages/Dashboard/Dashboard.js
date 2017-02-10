@@ -79,8 +79,13 @@ class Dashboard extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.jobid) {
+      if(this.state.search_visible)
+      {
+        this.setState({search_visible : false})
+      }
       this.getJobDetails(nextProps.params.jobid)
       this.getJobNotes(nextProps.params.jobid)
+
     }
     if (nextProps.params.noteid) {
       this.getJobNote(nextProps.params.noteid)
@@ -220,8 +225,7 @@ class Dashboard extends Component {
                   </div>
                   
                 </div>
-                <div className="Cell six">
-                  
+                <div className="Cell six">                  
                     
                     {
                       this.state.search_visible
@@ -235,7 +239,7 @@ class Dashboard extends Component {
                         ? <Note note={this.state.current_note} />
                         : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
                     }
-                  
+                    
                 </div>
 
 
