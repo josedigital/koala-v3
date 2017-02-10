@@ -228,7 +228,7 @@ class Dashboard extends Component {
 
 
 
-              <div className="Job">
+              <div className="Job_header">
                 {
                   this.props.params.jobid
                     ? <div><h3 className="Job__title h1">{this.state.job_details.title} @ {this.state.job_details.company} <a href={this.state.job_details.url} className="Icon__link" target="_blanks"><img src={extlink} className="Icon__img" alt="view job at site" /></a></h3></div>
