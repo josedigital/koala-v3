@@ -24,10 +24,6 @@ export default class NoteEditor extends React.Component {
     console.log(nextProps)
   }
 
-  componentDidMount(){
-    this.getPropNote()
-  }
-
   handleEdit (e) {
     e.preventDefault()
     this.props.editNote(this.props.note._id, this.state.content, this.props.note.category)
