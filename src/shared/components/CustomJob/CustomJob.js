@@ -41,9 +41,9 @@ class CustomJob extends React.Component {
   
   render () {
     return (
-      <div className="customJob">
+      <div className="Job__form">
        
-        <h2>Add a custom Job</h2>
+        <h3 className="uppercase">Add a Job</h3>
 
         <form onSubmit={ this.handleSubmit }>
       
@@ -56,7 +56,7 @@ class CustomJob extends React.Component {
               label='Job Title'
               type='text'
               name='title'
-              placeholder='Job Title' />
+              placeholder='' />
           </div>
               
           
@@ -69,7 +69,7 @@ class CustomJob extends React.Component {
               label='Link to job posting'
               type='text'
               name='url'
-              placeholder='www.myjobposting.com' />
+              placeholder='' />
           </div>
           
           {/* Company Field */}
@@ -80,7 +80,7 @@ class CustomJob extends React.Component {
               onChange={ this.handleChange } 
               label='Hiring Company'
               name='company'
-              placeholder='Horchata Design Syndicate' />
+              placeholder='' />
           </div>
 
           {/* Location field */}
@@ -92,7 +92,7 @@ class CustomJob extends React.Component {
               label='Job Location'
               type='text'
               name='location'
-              placeholder='El Paso, TX' />
+              placeholder='' />
           </div>
 
           <button type="submit">

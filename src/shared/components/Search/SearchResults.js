@@ -32,12 +32,15 @@ class SearchResults extends Component {
     // const profile = (this.props.profile) ? this.props.profile : ''
 
     return (
-      <div className={this.state.classes}>
-      {
-        this.state.searchform_visible ? <SearchForm setSearchResults={this.setSearchResults} hideSearchForm={this.props.hideSearch}/> : null
-      }
-        
-        {<JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />}
+      <div>
+        <h3 className="uppercase">Search Jobs</h3>
+        <div className={this.state.classes}>
+        {
+          this.state.searchform_visible ? <SearchForm setSearchResults={this.setSearchResults} hideSearchForm={this.props.hideSearch}/> : null
+        }
+          
+          {<JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />}
+        </div>
       </div>
     )
   }

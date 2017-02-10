@@ -84,6 +84,7 @@ export default class NoteEditor extends React.Component {
   render () {
     return (
       <div>
+        <h3 className="uppercase">Edit Note</h3>
         {this.state.editing ? (this.renderEdit()) : (this.renderNoteToEdit())}
       </div>
     )

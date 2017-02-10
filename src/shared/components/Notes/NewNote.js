@@ -38,6 +38,7 @@ class NewNote extends Component {
   render () {
     return (
       <div className="Newnote Cardnone">
+        <h3 className="uppercase">Add a Note</h3>
         <form onSubmit={ this.handleSubmit }>
           <TextArea
             label='Write your note below'
