@@ -9,6 +9,8 @@ class CustomJob extends React.Component {
       url: '',
       company: '',
       location: '',
+      classes: this.props.classes
+      
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -25,11 +27,7 @@ class CustomJob extends React.Component {
   handleSubmit(e){
 		e.preventDefault()
      this.props.saveJob(this.state)
-    // let userEmail = this.props.profile.email
-		// jobHelpers.saveJob(userEmail, this.state.title, this.state.url, this.state.location, this.state.company)
-    //   .then(function () {
-    //     console.log("Custom job sent to DB")
-		//   }.bind(this));
+     this.props.visible(e)
 		this.setState({
 			title: '',
 			url: '',
@@ -42,6 +40,7 @@ class CustomJob extends React.Component {
   render () {
     return (
       <div className="Job__form">
+
        
         <h3 className="uppercase">Add a Job</h3>
 
