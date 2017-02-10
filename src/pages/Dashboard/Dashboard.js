@@ -40,6 +40,7 @@ class Dashboard extends Component {
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
     this.editNote = this.editNote.bind(this)
+    this.deleteNote = this.deleteNote.bind(this)
     this.getJobNotes = this.getJobNotes.bind(this)
     this.getJobNote = this.getJobNote.bind(this)
     this.getJobDetails = this.getJobDetails.bind(this)
@@ -150,9 +151,13 @@ class Dashboard extends Component {
   }
 
   saveNote (content, jobId, noteCategory) {
-    console.log(content, jobId)
-    noteHelpers.saveNote(this.state.profile.email, jobId, noteCategory, content)
+    console.log('save note ---- ', content, jobId, noteCategory)
+    if(noteCategory === ''){
+      alert('You need a category')  
+    } else {
+      noteHelpers.saveNote(this.state.profile.email, jobId, noteCategory, content)
       .then( (response) => { console.log(response) })
+    }
   }
 
   editNote (noteId, content, category) {
@@ -160,7 +165,10 @@ class Dashboard extends Component {
       .then( (response) => { console.log(response) })
   }
 
-
+  deleteNote (jobId, noteId) {
+    noteHelpers.deleteNote(jobId, noteId)
+      .then( (response) => { console.log(response) })
+  }
 
   showHideSearch (e) {
     e.preventDefault()
