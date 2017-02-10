@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 const SavedJobItem = ({title, id, viewJob, deleteJob, getJobNotes}) => {
   
   return (
-    <li>
+    <li className="Card">
       <Link to={`/dashboard/${id}`}>
         {title}
       </Link>
