@@ -216,7 +216,7 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
-        <Header />
+        <Header auth={this.props.auth} logout={this.logout} />
         <div className="Page-wrap">
           <main role="main">
             <div className="container">
@@ -235,7 +235,6 @@ class Dashboard extends Component {
               <div className="Grid top Dashboard__content">
                 <div className="Cell three">
                   <div className="Cardnone">
-                    {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
                     {
                       this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} getJobNotes={this.getJobNotes} />
                     }

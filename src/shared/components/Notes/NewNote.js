@@ -44,7 +44,7 @@ class NewNote extends Component {
             name='noteText'
             controlFunction={this.handleContent}
             content={this.state.content} />
-            <p><strong>Select a Note Category:</strong></p>
+
           <Select 
             name='category'
             controlFunction={this.handleCategory}

@@ -65,9 +65,9 @@ export default class NoteEditor extends React.Component {
 
   renderNoteToEdit () {
     return (
-      <span onClick={this.startEditing}>
+      <div className="textarea" onClick={this.startEditing}>
         {this.state.content}
-      </span>
+      </div>
     )
   }
 

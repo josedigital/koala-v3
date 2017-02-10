@@ -9,7 +9,7 @@ const Select = (props) => {
         value={props.selectedValue}
         className="form-select"
       >
-        <option value="">- Select One -</option>
+        <option value="">- Select a Note Category: -</option>
         {props.options.map(opt => {
           return (
             <option
