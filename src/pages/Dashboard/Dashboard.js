@@ -206,6 +206,12 @@ class Dashboard extends Component {
     })
   }
 
+  showHideAddJob2 () {
+    this.setState({
+      add_job: false
+    })
+  }
+
   getJobNotes (jobId) {
     console.log('getJobNotes fired')
     noteHelpers.getNotes(jobId)
@@ -214,7 +220,7 @@ class Dashboard extends Component {
         this.setState({
           job_notes: response.data.Notes
         })
-      })
+      });this.showHideAddJob2();
   }
 
   getJobNote (noteId) {
@@ -271,7 +277,7 @@ class Dashboard extends Component {
                     }
                     {
                       this.state.add_job
-                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
+                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} visible={this.showHideAddJob}classes={'Search animated fadeInDown'} />
                         : null
                     }
 
