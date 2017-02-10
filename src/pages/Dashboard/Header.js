@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './Dashboard.css';
-import Koala from './img/Koala.png'
+import Koala from './img/Koala-head.png'
 import bgimg from './img/main-bg.jpg'
 let bgstyles = {
   backgroundImage: 'url('+bgimg+')'
@@ -11,12 +11,12 @@ const Header = ({auth, logout, profile, seeSearch, addJob}) => {
   return (
     <div>
       <div className="Background-image" style={bgstyles}></div>
-      <div className="Page-wrap">
+      
         <header className="Header">
           <div className="Grid middle container">
             <div className="Cell four Brand">
               <div className="Grid">
-                <div className="Cell one"><img src={Koala} alt="" /></div>
+                <div className="Cell"><img src={Koala} alt="" /></div>
                 <div className="Cell"><h1 className="uppercase">Koala</h1></div>
               </div>              
             </div>
@@ -38,7 +38,7 @@ const Header = ({auth, logout, profile, seeSearch, addJob}) => {
             </div>
           </div>
         </header>
-      </div>
+      
     </div>
  ) 
 }
