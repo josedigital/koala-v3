@@ -75,6 +75,26 @@
 
 
 
+  /* Forms */
+  .Dashboard {
+    .textarea,
+    textarea {
+      background-color: rgba(255,255,255,0.3);
+      border: none;
+      font-family: 'Montserrat';
+      font-size: 2rem;
+      padding: 6px 10px;
+      min-height: 200px;
+      white-space: pre-wrap;
+      width: 100%;
+      &:focus {
+        border: none;
+      }
+    }
+  }
+  
+
+
 
 
 
@@ -124,6 +144,9 @@
     right: 0;
     top: 0;
     width: 25%;
+  }
+  .Note.Card {
+    white-space: pre-wrap;
   }
 
 

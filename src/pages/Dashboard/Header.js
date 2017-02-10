@@ -7,7 +7,7 @@ let bgstyles = {
   backgroundImage: 'url('+bgimg+')'
 }
 
-const Header = () => {
+const Header = ({auth, logout}) => {
   return (
     <div>
       <div className="Background-image" style={bgstyles}></div>
@@ -19,6 +19,9 @@ const Header = () => {
                 <div className="Cell one"><img src={Koala} alt="" /></div>
                 <div className="Cell"><h1 className="uppercase">Koala</h1></div>
               </div>              
+            </div>
+            <div className="Cell two right">
+              <div className="Cell">{auth.loggedIn ? <button href='/' onClick={ () => logout() }>logout</button> : ''}</div>
             </div>
           </div>
         </header>
