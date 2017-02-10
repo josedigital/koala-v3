@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
+import {browserHistory} from 'react-router';
 
 import Header from './Header'
 import SavedJobsList from '../../shared/components/SavedJobsList/SavedJobsList'
@@ -7,9 +8,14 @@ import SearchResults from '../../shared/components/Search/SearchResults'
 import NewNote from '../../shared/components/Notes/NewNote'
 import NoteList from '../../shared/components/Notes/NoteList'
 import Note from '../../shared/components/Notes/Note'
+import NoteEditor from '../../shared/components/Notes/NoteEditor'
+import CustomJob from '../../shared/components/CustomJob/CustomJob'
 
 import AuthService from '../../utils/AuthService'
-import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
+import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers, getGlassdoorInfo } from '../../utils/helpers'
+
+import extlink from './img/external-link.png'
+
 
 
 const REQUEST = 'REQUEST'
@@ -26,9 +32,11 @@ class Dashboard extends Component {
       status: REQUEST,
       message: '',
       search_visible: false,
+      add_job: false,
       job_notes: [],
       current_note: [],
-      job_details: []
+      job_details: [],
+      glassdoorInfo: {}
     }
 
     
@@ -36,12 +44,16 @@ class Dashboard extends Component {
     this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.showHideSearch = this.showHideSearch.bind(this)
+    this.showHideAddJob = this.showHideAddJob.bind(this)
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
+    this.editNote = this.editNote.bind(this)
+    this.editRefresh = this.editRefresh.bind(this)
+    this.deleteNote = this.deleteNote.bind(this)
     this.getJobNotes = this.getJobNotes.bind(this)
     this.getJobNote = this.getJobNote.bind(this)
     this.getJobDetails = this.getJobDetails.bind(this)
-
+    this.logout = this.logout.bind(this)
   }
 
   static contextTypes = {
@@ -77,15 +89,20 @@ class Dashboard extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.jobid) {
+      if(this.state.search_visible)
+      {
+        this.setState({search_visible : false})
+      }
       this.getJobDetails(nextProps.params.jobid)
       this.getJobNotes(nextProps.params.jobid)
+      this.editRefresh(nextProps.params.jobid)
+
     }
     if (nextProps.params.noteid) {
       this.getJobNote(nextProps.params.noteid)
     }
   }
   
-
   getJobDetails (jobId) {
     jobHelpers.getJobDetails(jobId)
       .then( (response) => {
@@ -95,7 +112,6 @@ class Dashboard extends Component {
         })
       })
   }
-
 
 
 	saveJob (job) {
@@ -120,6 +136,8 @@ class Dashboard extends Component {
       .then(function(data) {
         this.getSavedJobs(email)
       }.bind(this));
+
+      browserHistory.push('/dashboard');
   }
 
 
@@ -150,15 +168,47 @@ class Dashboard extends Component {
   saveNote (content, jobId, noteCategory) {
     console.log(content, jobId)
     noteHelpers.saveNote(this.state.profile.email, jobId, noteCategory, content)
-      .then( (response) => { console.log(response) })
+      .then( (response) => { 
+        this.setState({
+          job_notes: response.data.Notes
+        })
+        this.getJobNotes(jobId)
+      })
   }
 
+  editNote (noteId, content, category) {
+    noteHelpers.editNote(noteId, content, category)
+      .then( (response) => { 
+        this.props.params.noteid = undefined
+      })
+  }
 
+  editRefresh (jobId) {
+    this.getJobNotes(jobId)
+  }
+
+  deleteNote (jobId, noteId) {
+    noteHelpers.deleteNote(jobId, noteId)
+      .then( (response) => { console.log(response) })
+  }
 
   showHideSearch (e) {
     e.preventDefault()
     this.setState({
       search_visible: !this.state.search_visible
+    })
+  }
+
+  showHideAddJob (e) {
+    e.preventDefault()
+    this.setState({
+      add_job: !this.state.add_job
+    })
+  }
+
+  showHideAddJob2 () {
+    this.setState({
+      add_job: false
     })
   }
 
@@ -170,14 +220,14 @@ class Dashboard extends Component {
         this.setState({
           job_notes: response.data.Notes
         })
-      })
+      });this.showHideAddJob2();
   }
 
   getJobNote (noteId) {
     console.log(noteId)
     noteHelpers.getNote(noteId)
       .then( (response) => {
-        console.log('this is the note', response)
+        console.log('this is the note', response.data)
         this.setState({
           current_note: response.data
         })
@@ -193,26 +243,26 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
-        <Header />
+        <Header auth={this.props.auth} logout={this.logout} profile={this.state.profile} seeSearch={this.showHideSearch} addJob={this.showHideAddJob} />
         <div className="Page-wrap">
           <main role="main">
             <div className="container">
 
 
 
-              <div className="Job">
+              <div className="Job_header">
                 {
                   this.props.params.jobid
-                    ? <div><h3 className="Job__title h1">{this.state.job_details.title}</h3><p className="Job__company h3">{this.state.job_details.company}</p><p className="Job__link uppercase"><a href={this.state.job_details.url} className="button button-primary" target="_blanks">View Details</a></p></div>
+                    ? <div><h2 className="Job__title h2">{this.state.job_details.title} @ {this.state.job_details.company} <a href={this.state.job_details.url} className="Icon__link" target="_blanks"><img src={extlink} className="Icon__img" alt="view job at site" /></a></h2></div>
                     : null
                 }
               </div>
 
-              <p><a href="" className="button button-primary" onClick={this.showHideSearch}>New Job Search</a></p>
+             
               <div className="Grid top Dashboard__content">
                 <div className="Cell three">
-                  <div className="Card">
-                    {this.props.auth.loggedIn ? <button href='/' onClick={this.logout.bind(this)}>logout</button> : ''}
+                  <div className="Cardnone">
+                    <h3 className="uppercase">Saved Jobs</h3>
                     {
                       this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} getJobNotes={this.getJobNotes} />
                     }
@@ -220,21 +270,25 @@ class Dashboard extends Component {
                   
                 </div>
                 <div className="Cell six">
-                  
-                    
                     {
                       this.state.search_visible
                         ? <SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
+                        : null
+                    }
+                    {
+                      this.state.add_job
+                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} visible={this.showHideAddJob}classes={'Search animated fadeInDown'} />
                         : null
                     }
 
 
                     {
                       this.props.params.noteid
-                        ? <Note note={this.state.current_note} />
+                        ? <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
                         : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
+                        // : <CustomJob profile={this.props.profile} saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
                     }
-                  
+                    
                 </div>
 
 

@@ -4,12 +4,15 @@ import { Link } from 'react-router'
 const SavedJobItem = ({title, id, viewJob, deleteJob, getJobNotes}) => {
   
   return (
-    <li>
+    <li className="Job Card">
       <Link to={`/dashboard/${id}`}>
         {title}
       </Link>
-      - <button onClick={ () => {deleteJob(id)} }>X</button>
+      <button className="Close" onClick={ () => {deleteJob(id)} }>X</button>
     </li>
+    
+      
+    
   ) 
 }
 

@@ -12,7 +12,8 @@ class SearchResults extends Component {
       jobListEmpty: [{
         title:'You have no saved jobs'
       }],
-      classes: this.props.classes
+      classes: this.props.classes,
+      searchform_visible: true
     }
 
     this.setSearchResults = this.setSearchResults.bind(this)      
@@ -23,6 +24,7 @@ class SearchResults extends Component {
     this.setState({
       jobList: results
     });
+    this.setState({searchform_visible: false})
   }
 
 
@@ -30,9 +32,15 @@ class SearchResults extends Component {
     // const profile = (this.props.profile) ? this.props.profile : ''
 
     return (
-      <div className={this.state.classes}>
-        <SearchForm setSearchResults={this.setSearchResults} />
-        {<JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />}
+      <div>
+        <h3 className="uppercase">Search Jobs</h3>
+        <div className={this.state.classes}>
+        {
+          this.state.searchform_visible ? <SearchForm setSearchResults={this.setSearchResults} hideSearchForm={this.props.hideSearch}/> : null
+        }
+          
+          {<JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />}
+        </div>
       </div>
     )
   }

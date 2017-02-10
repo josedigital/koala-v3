@@ -30,25 +30,27 @@ class NewNote extends Component {
   }
 
   handleSubmit (e) {
+    e.preventDefault()
     this.props.saveNote(this.state.content, this.state.jobid, this.state.category)
     this.setState({ content: '', jobid: '', category: '' })
   }
 
   render () {
     return (
-      <div className="Newnote Card">
+      <div className="Newnote Cardnone">
+        <h3 className="uppercase">Add a Note</h3>
         <form onSubmit={ this.handleSubmit }>
-          <p><strong>Select a Note Category:</strong></p>
-          <Select 
-            name='category'
-            controlFunction={this.handleCategory}
-            selectedValue={this.state.category}
-            options={['Position Research','Company Information', 'Project Highlights', 'Interview Questions']} />
           <TextArea
             label='Write your note below'
             name='noteText'
             controlFunction={this.handleContent}
             content={this.state.content} />
+
+          <Select 
+            name='category'
+            controlFunction={this.handleCategory}
+            selectedValue={this.state.category}
+            options={['Position Research','Company Information', 'Project Highlights', 'Interview Questions']} />
           <button type="submit">
             Create Note
           </button>

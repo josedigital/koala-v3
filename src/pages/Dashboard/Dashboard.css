@@ -1,5 +1,5 @@
 :global {
-  .Dashboard__content > .Cell {
+  .Dashboard__content > .Cell.six {
     height: 100vh;
     overflow-x: auto;
     overflow-y: auto;
@@ -30,23 +30,64 @@
 
   .Header {
     background-color: #fff;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 50;
   }
   .Header > .container {
     height: 60px;
   }
   .Brand h1 {
+    font-family: 'Montserrat';
     font-size: 3.4rem;
     font-weight: bold;
     margin: 0;
   }
-  .Brand img {
-    height: auto;
-    width: 80%;
+  nav {
+    a {
+      color: #9B489B;
+      &:after {
+        background-color: #9B489B;
+        content:'';
+        display: block;
+        height: 3px;
+        transition: width .3s;
+        width: 0%;
+      }
+      &:hover {
+        color: #89269B;
+        text-decoration: none;
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .Profile {
+    text-align: right;
+  }
+  .Profile__img {
+    border-radius: 50%;
+    height: 30px;
+    margin-right: 1rem;
+    width: auto;
+  }
+  .Profile__name {
+    font-size: 1rem;
+  }
+
+
+  main {
+    margin-top: 8rem;
+    position: relative;
+    z-index: 10;
   }
 
   /* Job */
-  .Job {
-    margin: 4rem 0;
+  .Job__header {
+    margin: 1rem 0 2rem;
   }
   .Job__title {
     color: #fff;
@@ -70,12 +111,75 @@
     .Job__link a:hover {
       color: #000;
     }
+  .Icon__img {
+    height: 25px;
+    width: auto;
+  }
 
 
 
 
 
+  /* Forms */
+  .Dashboard {
+    h3 {
+      font-family: 'Montserrat';
+      font-weight: bold;
+      margin-bottom: 3rem;
+    }
 
+    form {
+      button {
+        box-shadow: 0 5px 30px 0 rgba(0,0,0,0.30);
+        transition: all 0.3s;
+        &:hover {
+          box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+        }
+    }
+    }
+
+    .textarea,
+    textarea {
+      background-color: rgba(255,255,255,0.3);
+      border: none;
+      font-family: 'Montserrat';
+      font-size: 2rem;
+      padding: 6px 10px;
+      min-height: 200px;
+      white-space: pre-wrap;
+      width: 100%;
+      &:focus {
+        border: none;
+      }
+    }
+  }
+  .Job__form {
+    input[type=text] {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #fff;
+      border-radius: 0;
+      padding: 0 1.5rem;
+      &:focus {
+        border: none;
+        border-bottom: 1px solid #fff;
+        /*box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);*/
+      }
+    }
+    input[type=text],
+    textarea {
+      transition: all .3s;
+      width: 100%;
+    }
+  }
+  
+
+
+
+  /* LIsts */
+  .List {
+    list-style: none;
+  }
 
 
 
@@ -87,20 +191,40 @@
     height: 100%;
     padding: 20px;
   }
+  .Job {
+    transition: all .3s ease-in-out;
+    &:hover {
+      box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
 
+  .Job,
   .Note {
-    height: 240px;
+    height: auto;
+    max-height: 250px;
     margin-bottom: 3.5rem;
-    overflow: hidden;
     position: relative;
     transition: all .3s ease-in-out;
-    transform: scale(1);   
+    transform: scale(1);
     width: 100%;
-  }
-    .Note:hover {
+    &:hover {
       box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
-      /*transform: scale(1.05);*/
+      transform: scale(1.05);
+      .Close {
+        right: -10px;
+        top: -10px;
+      }
     }
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .Note {
+    overflow: hidden;
+  }
+    
   .Note__content {
     border: none;
     height: 100px;
@@ -124,6 +248,38 @@
     right: 0;
     top: 0;
     width: 25%;
+  }
+  .Note.Card {
+    white-space: pre-wrap;
+  }
+  .Note__bubble {
+    background-color: #ADF2EB;
+    height: 5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 5rem;
+  }
+  .Close {
+    border-radius: 50%;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+    color: rgb(255,0,0);
+    height: 3rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 5;
+    width: 3rem;
+    padding: 0;
+    line-height: 0;
+    transition: all .3s ease-in-out;
+    transform: scale(1);   
+    &:hover {
+      background-color: rgba(255,0,0,0.6);
+      box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+      color: #fff;
+      transform: scale(1.25);
+    }
   }
 
 
