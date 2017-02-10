@@ -10,7 +10,8 @@ import Note from '../../shared/components/Notes/Note'
 import NoteEditor from '../../shared/components/Notes/NoteEditor'
 
 import AuthService from '../../utils/AuthService'
-import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
+import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers, getGlassdoorInfo } from '../../utils/helpers'
+
 
 
 const REQUEST = 'REQUEST'
@@ -29,7 +30,8 @@ class Dashboard extends Component {
       search_visible: false,
       job_notes: [],
       current_note: [],
-      job_details: []
+      job_details: [],
+      glassdoorInfo: {}
     }
 
     
@@ -80,15 +82,19 @@ class Dashboard extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.jobid) {
+      if(this.state.search_visible)
+      {
+        this.setState({search_visible : false})
+      }
       this.getJobDetails(nextProps.params.jobid)
       this.getJobNotes(nextProps.params.jobid)
+
     }
     if (nextProps.params.noteid) {
       this.getJobNote(nextProps.params.noteid)
     }
   }
   
-
   getJobDetails (jobId) {
     jobHelpers.getJobDetails(jobId)
       .then( (response) => {
@@ -234,8 +240,7 @@ class Dashboard extends Component {
                   </div>
                   
                 </div>
-                <div className="Cell six">
-                  
+                <div className="Cell six">                  
                     
                     {
                       this.state.search_visible
@@ -249,7 +254,7 @@ class Dashboard extends Component {
                         ? <NoteEditor note={this.state.current_note} editNote={this.editNote} />
                         : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
                     }
-                  
+                    
                 </div>
 
 

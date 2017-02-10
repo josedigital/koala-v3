@@ -77,21 +77,22 @@ router.get('/api/jobs/all', function(req, res, next) {
 router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
     console.log("inside keyword search helper function" + req.params.searchTerm + req.params.searchLocation);
     jobsArr = [];
-   
+
     (req.params.searchTerm === 'all') ? searchTerm = '': searchTerm = req.params.searchTerm;
     (req.params.searchLocation === 'all') ? searchLocation = '': searchLocation = req.params.searchLocation;
 
     indeedUri = "http://api.indeed.com/ads/apisearch?publisher=180200156283414&q=" + searchTerm +
-    "&l= " + searchLocation + "&sort=&radius=&st=&jt=&start=&limit=25&fromage=&filter=&latlong=1&co=us&chnl=}" +
-    "&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json";
+        "&l= " + searchLocation + "&sort=&radius=&st=&jt=&start=&limit=25&fromage=&filter=&latlong=1&co=us&chnl=}" +
+        "&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json";
     // dice search   
     request({ uri: 'http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + searchTerm + '&city=' + searchLocation },
         function(error, response) {
             console.log("Dice Search Reponse");
             if (!error && response.statusCode === 200) {
                 var resultsDice = JSON.parse(response.body);
-                 if(resultsDice.count > 0){
-                    var resultLength = resultsDice.resultItemList.length;
+                if (resultsDice.count > 0) {
+                      var resultLength = resultsDice.resultItemList.length;
+
                     console.log("results frm dice" + resultLength);
                     // insert results from dice in to jobsArr
                     for (let i = 0; i < resultLength; i++) {
@@ -103,11 +104,12 @@ router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
                             date: resultsDice.resultItemList[i].date
                         }
                         jobsArr.push(jobDice);
-                 }
-                 }//end of Dice 0 catch
+                    }
+
+                }
                 console.log("length of array after adding dice jobs" + jobsArr.length);
                 console.log(jobsArr.length);
-                console.log(indeedUri);
+                // console.log(indeedUri);
                 // indeed search    
                 request({ uri: indeedUri },
                     function(error, response, next) {
@@ -115,9 +117,8 @@ router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
                         // console.log(response.body);                        
                         if (!error && response.statusCode === 200) {
                             var resultsIndeed = JSON.parse(response.body)
-                            if (resultsIndeed.totalResults > 0){
+                            if (resultsIndeed.totalResults > 0) {
                                 var resLength = resultsIndeed.results.length;
-
                                 console.log("results frm indeed" + resLength);
 
                                 for (let j = 0; j < resLength; j++) {
@@ -130,12 +131,13 @@ router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
                                     }
                                     jobsArr.push(jobIndeed);
                                 }
+                            }
                                 console.log("length of array after adding indeed jobs" + jobsArr.length);
                                 console.log(jobsArr.length);
                                 console.log("BEFORE RESPONSE" + jobsArr.length);
                                 res.json(jobsArr);
                                 // console.log(jobsArr);
-                            }// END of 0 catch for Indeed
+
                         } else {
                             console.log(error);
                         }
@@ -145,6 +147,25 @@ router.get('/api/jobs/:searchTerm/:searchLocation', function(req, res, next) {
                 res.json(error);
             }
         });
+});
+
+router.get('/api/glassdoor/:companyName', function(req, res, next) {
+
+    console.log(req.params.companyName);
+
+    var glassdoorUri = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=122079&t.k=f5XFUh4nAoe&action=employers&q=" + req.params.companyName;
+    request({ uri: glassdoorUri },
+        function(error, response, next) {
+            var result = JSON.parse(response.body)
+
+            var rating = {
+                number: result.response.employers[0].overallRating
+            }
+
+            res.json(rating);
+
+        });
+
 });
 
 module.exports = router;

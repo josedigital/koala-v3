@@ -30,7 +30,8 @@ class NewNote extends Component {
   }
 
   handleSubmit (e) {
-    e.preventDefault(); 
+
+    e.preventDefault()
     this.props.saveNote(this.state.content, this.state.jobid, this.state.category)
     this.setState({ content: '', jobid: '', category: '' })
   }
