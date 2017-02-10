@@ -8,6 +8,7 @@ import NewNote from '../../shared/components/Notes/NewNote'
 import NoteList from '../../shared/components/Notes/NoteList'
 import Note from '../../shared/components/Notes/Note'
 import NoteEditor from '../../shared/components/Notes/NoteEditor'
+import CustomJob from '../../shared/components/CustomJob/CustomJob'
 
 import AuthService from '../../utils/AuthService'
 import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
