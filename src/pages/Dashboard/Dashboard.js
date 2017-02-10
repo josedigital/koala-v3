@@ -7,6 +7,7 @@ import SearchResults from '../../shared/components/Search/SearchResults'
 import NewNote from '../../shared/components/Notes/NewNote'
 import NoteList from '../../shared/components/Notes/NoteList'
 import Note from '../../shared/components/Notes/Note'
+import NoteEditor from '../../shared/components/Notes/NoteEditor'
 
 import AuthService from '../../utils/AuthService'
 import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers, getGlassdoorInfo } from '../../utils/helpers'
@@ -40,6 +41,8 @@ class Dashboard extends Component {
     this.showHideSearch = this.showHideSearch.bind(this)
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
+    this.editNote = this.editNote.bind(this)
+    this.deleteNote = this.deleteNote.bind(this)
     this.getJobNotes = this.getJobNotes.bind(this)
     this.getJobNote = this.getJobNote.bind(this)
     this.getJobDetails = this.getJobDetails.bind(this)
@@ -154,12 +157,24 @@ class Dashboard extends Component {
   }
 
   saveNote (content, jobId, noteCategory) {
-    console.log(content, jobId)
-    noteHelpers.saveNote(this.state.profile.email, jobId, noteCategory, content)
+    console.log('save note ---- ', content, jobId, noteCategory)
+    if(noteCategory === ''){
+      alert('You need a category')  
+    } else {
+      noteHelpers.saveNote(this.state.profile.email, jobId, noteCategory, content)
+      .then( (response) => { console.log(response) })
+    }
+  }
+
+  editNote (noteId, content, category) {
+    noteHelpers.editNote(noteId, content, category)
       .then( (response) => { console.log(response) })
   }
 
-
+  deleteNote (jobId, noteId) {
+    noteHelpers.deleteNote(jobId, noteId)
+      .then( (response) => { console.log(response) })
+  }
 
   showHideSearch (e) {
     e.preventDefault()
@@ -183,7 +198,7 @@ class Dashboard extends Component {
     console.log(noteId)
     noteHelpers.getNote(noteId)
       .then( (response) => {
-        console.log('this is the note', response)
+        console.log('this is the note', response.data)
         this.setState({
           current_note: response.data
         })
@@ -236,7 +251,7 @@ class Dashboard extends Component {
 
                     {
                       this.props.params.noteid
-                        ? <Note note={this.state.current_note} />
+                        ? <NoteEditor note={this.state.current_note} editNote={this.editNote} />
                         : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
                     }
                     
