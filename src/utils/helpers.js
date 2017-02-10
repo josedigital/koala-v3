@@ -122,6 +122,10 @@ export function jobsApiSearch(searchTerm, searchLocation) {
     return axios.get('/api/jobs/' + searchTerm + '/' + searchLocation)
 }
 
+export function getGlassdoorInfo(companyName){
+  return axios.get('/api/glassdoor/' + companyName)
+}
+
 export function checkUser(username) {
     return axios.get(`/api/user/check/${username}`)
 }
