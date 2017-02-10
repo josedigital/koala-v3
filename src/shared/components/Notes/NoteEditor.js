@@ -1,5 +1,5 @@
 import React from 'react'
-import {noteHelpers} from '../../../utils/helpers'
+// import {noteHelpers} from '../../../utils/helpers'
 
 export default class NoteEditor extends React.Component {
   constructor(props){
@@ -10,48 +10,24 @@ export default class NoteEditor extends React.Component {
       noteId:'',
       noteCategory: ''
     };
-    this.handleSubmitEditedNote = this.handleSubmitEditedNote.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.startEditing = this.startEditing.bind(this);
 		this.finishEditing = this.finishEditing.bind(this);
 		this.newChanges = this.newChanges.bind(this);
 		this.renderEdit = this.renderEdit.bind(this);
 		this.renderNoteToEdit = this.renderNoteToEdit.bind(this);
-    this.getJobNote = this.getJobNote.bind(this);
+    this.getPropNote = this.getPropNote.bind(this)
 	}
 
-  componentWillMount() {
-    this.getJobNote(this.props.george)
-  }
-
   componentWillReceiveProps (nextProps) {
+    this.getPropNote();
     console.log(nextProps)
-    if (nextProps.george) {
-      this.getJobNote(nextProps.george)
-    }
-  }
-  
-
-  getJobNote (noteId) {
-    console.log(noteId)
-    console.log(this.state.current_note)
-    console.log(this.props.note)
-    noteHelpers.getNote(noteId)
-      .then( (response) => {
-        console.log('this is the note', response.data)
-        this.setState({
-          content: response.data.noteText,
-          noteId: response.data._id,
-          noteCategory: response.data.category
-        });console.log(this.state.content)
-      })
   }
 
-  handleSubmitEditedNote(e){
-    // e.preventDefault()
-    noteHelpers.editNote(this.props.note._id, this.state.content, this.props.note.category).then(function(response){
-      console.log("note updated for " + this.state.noteId + " category " + this.props.note.category)
-      console.log(response.data)
-    }.bind(this));
+  handleEdit (e) {
+    e.preventDefault()
+    this.props.editNote(this.props.note._id, this.state.content, this.props.note.category)
+    console.log("----Note Updated to database----")
   }
 
   finishEditing (e) {
@@ -59,7 +35,7 @@ export default class NoteEditor extends React.Component {
     this.setState({
       editing: false
     })
-    this.handleSubmitEditedNote(e);
+    this.handleEdit (e);
   }
 
   startEditing (e) {
@@ -93,6 +69,15 @@ export default class NoteEditor extends React.Component {
         {this.state.content}
       </span>
     )
+  }
+
+  getPropNote () {
+    console.log('note props------', this.props.note)
+    this.setState({
+      content: this.props.note.noteText,
+      noteId: this.props.note._id,
+      noteCategory: this.props.note.category
+    })
   }
 
   render () {

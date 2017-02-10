@@ -149,6 +149,11 @@ class Dashboard extends Component {
       .then( (response) => { console.log(response) })
   }
 
+  editNote (noteId, content, category) {
+    noteHelpers.editNote(noteId, content, category)
+      .then( (response) => { console.log(response) })
+  }
+
 
 
   showHideSearch (e) {
@@ -217,7 +222,7 @@ class Dashboard extends Component {
 
             {
               this.props.params.noteid
-                ? <NoteEditor note={this.state.current_note} george={this.props.params.noteid} getJobNote={this.getJobNote}/>
+                ? <NoteEditor note={this.state.current_note} editNote={this.editNote}/>
                 : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
             }
             
