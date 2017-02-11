@@ -1,0 +1,88 @@
+:global {
+
+
+
+  /* Landing Page */
+  .Landing {
+    height: 100vh;
+    padding: 10rem 0;
+    text-align: center;
+  }
+  .Landing__logo img {
+    height: auto;
+    margin-bottom: -3rem;
+    width: 25%;
+  }
+  .Landing p {
+    color: #fff;
+  }
+  .Landing__logo h1 {
+    color: #fff;
+    font-weight: bold;
+  }
+  .Landing__video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    opacity: 0.1;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover; 
+  }
+
+  .Works {
+    background-color: #fff;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.50);
+    padding: 4rem 0;
+    position: relative;
+    z-index: 5;
+  }
+  .Feature {
+    border-bottom: 1px solid #E1FFEE;
+    padding: 8rem 0;
+  }
+  .Feature h3:after {
+    background-color: #48E28A;
+    content: '';
+    display: block;
+    height: 5px;
+    margin: 2rem 0;
+    width: 10%;
+  }
+
+
+  .End {
+    background-color: #444;
+    background-image: url('https://josedigital.github.io/koala-site/img/end.jpeg');
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #fff;
+    padding: 12rem 0;
+    position: relative;
+  }
+  .End .container {
+    position: relative;
+    z-index: 5;
+  }
+  .Background-image--end {
+    background-color: rgba(48,83,63,0.9);
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    top: 0;
+    width: 100%;
+  }
+
+
+
+
+
+}
