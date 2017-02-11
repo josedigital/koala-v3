@@ -12,6 +12,7 @@ const requireAuth = (nextState, replace) => {
 }
 
 import App from './App';
+import LandingPage from '../../pages/LandingPage/LandingPage'
 import Dashboard from '../../pages/Dashboard/Dashboard';
 
 

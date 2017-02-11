@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import Auth0Lock from 'auth0-lock'
 import { browserHistory } from 'react-router'
+import LogoImg from '../pages/Dashboard/img/Koala-head.png'
 
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
@@ -10,6 +11,13 @@ export default class AuthService extends EventEmitter {
       auth: {
         redirectUrl: 'http://localhost:3000/login',
         responseType: 'token'
+      },
+      theme: {
+        logo: LogoImg,
+        primaryColor: "#48E28A"
+      },
+      languageDictionary: {
+        title: 'Koala Job App'
       }
     })
     // Add callback for lock `authenticated` event

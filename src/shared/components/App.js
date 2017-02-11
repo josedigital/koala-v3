@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Login from './Login'
+import LandingPage from '../../pages/LandingPage/LandingPage'
 
 class App extends Component {
   constructor (props) {
@@ -25,7 +26,7 @@ class App extends Component {
     }
     return (
       <div>
-        {this.state.profile.email ? children : <Login auth={this.props.route.auth} />}
+        {this.state.profile.email ? children : <LandingPage auth={this.props.route.auth} />}
       </div>
     )
   }
