@@ -33,6 +33,7 @@ class Dashboard extends Component {
       message: '',
       search_visible: false,
       add_job: false,
+      edit_note: false,
       job_notes: [],
       current_note: [],
       job_details: [],
@@ -45,6 +46,7 @@ class Dashboard extends Component {
     this.deleteJob = this.deleteJob.bind(this)
     this.showHideSearch = this.showHideSearch.bind(this)
     this.showHideAddJob = this.showHideAddJob.bind(this)
+    this.showHideEditNote = this.showHideEditNote.bind(this)
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
     this.editNote = this.editNote.bind(this)
@@ -212,6 +214,13 @@ class Dashboard extends Component {
     })
   }
 
+  showHideEditNote() {
+    this.setState({
+      edit_note: true,
+      search_visible: false
+    })
+  }
+
   getJobNotes (jobId) {
     console.log('getJobNotes fired')
     noteHelpers.getNotes(jobId)
@@ -277,16 +286,31 @@ class Dashboard extends Component {
                     }
                     {
                       this.state.add_job
-                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} visible={this.showHideAddJob}classes={'Search animated fadeInDown'} />
+                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} visible={this.showHideAddJob} classes={'Search animated fadeInDown'} />
                         : null
                     }
 
 
                     {
-                      this.props.params.noteid
+                     this.props.params.noteid && this.props.params.jobid ?
+                        <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
+                      : null
+                      //this.props.params.noteid
+                        //? <NoteEditor note={this.state.current_note} jobId=//{this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
+                        //: null
+                        //---------
+                        //*<SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
+                    }
+
+                    {
+                      this.props.params.jobid && !this.props.params.noteid
                         ? <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
-                        : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
-                        // : <CustomJob profile={this.props.profile} saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
+                        : null  
+                    }
+
+                    {
+                      !this.props.params.jobid && !this.props.params.noteid
+                        ? <SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} /> : null
                     }
                     
                 </div>
