@@ -55,16 +55,16 @@ class SearchForm extends Component {
 
       return (
         <div className="Search-form">
-          <div className="Card">
+          <div className="Job__form">
           <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
             <TextInput 
             classes='test'
-            label='Title'
+            label='Search by keyword'
             inputType='text'
             name='keyWord'
             controlFunction={this.handleKeyWordSearch}
             content={this.state.keyWord}
-            placeHolder='Search For Keyword'/>
+            placeHolder=''/>
 
             <TextInput 
             label='Location'
@@ -72,7 +72,7 @@ class SearchForm extends Component {
             name='location'
             controlFunction={this.handleLocationSearch}
             content={this.state.location}
-            placeHolder='Austin,TX'/>
+            placeHolder=''/>
 
             <div className="form-element">
               <button type="submit">Search</button>
