@@ -40,10 +40,16 @@
     height: 60px;
   }
   .Brand h1 {
-    font-family: 'Montserrat';
+    /*font-family: 'Montserrat';
     font-size: 3.4rem;
     font-weight: bold;
+    margin: 0;*/
+    font-family: 'Leckerli One', cursive;
+    color: #2b8752;
+    font-size: 4rem;
     margin: 0;
+    text-decoration: none;
+
   }
   nav {
     a {
@@ -281,7 +287,11 @@
       transform: scale(1.25);
     }
   }
-
+.koala{
+    font-family: 'Leckerli One', cursive;
+    color: #2b8752;
+    font-size: 200%;
+  }
 
 
 

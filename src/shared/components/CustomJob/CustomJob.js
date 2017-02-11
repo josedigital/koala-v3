@@ -40,11 +40,13 @@ class CustomJob extends React.Component {
   render () {
     return (
       <div className="Job__form">
-
-       
+        <div className={this.state.classes}>
         <h3 className="uppercase">Add a Job</h3>
+        <h5> Have a job you want to manage that you didn't find our on list? Sure you do, everyone does, you can create a custom job below and manage it the same way. </h5>
+        </div>
+        
 
-        <form onSubmit={ this.handleSubmit }>
+        <form onSubmit={ this.handleSubmit } className={this.state.classes}>
       
           {/* Title field */}
           <div className="form-element">
@@ -74,10 +76,11 @@ class CustomJob extends React.Component {
           {/* Company Field */}
           <div className="form-element">
             <label htmlFor='company' className="form-label">Company</label>
-            <textarea
+            <input
               value={ this.state.company } 
               onChange={ this.handleChange } 
               label='Hiring Company'
+              type='text'
               name='company'
               placeholder='' />
           </div>

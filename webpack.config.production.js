@@ -8,7 +8,6 @@ var embedFileSize = 50000;
 
 module.exports = _.extend({}, config, {
   entry: [
-    'bootstrap-loader/extractStyles',
     path.join(__dirname, 'src/main.js')
   ],
   output: {

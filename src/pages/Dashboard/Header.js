@@ -19,7 +19,7 @@ const Header = ({auth, logout, profile, seeSearch, addJob}) => {
               <div className="Grid">
                 <Link to="/dashboard" className="Cell Grid">
                   <div className="Cell"><img src={Koala} alt="" /></div>
-                  <div className="Cell"><h1 className="uppercase">Koala</h1></div>
+                  <div className="Cell"><h1 className="koala">Koala</h1></div>
                 </Link>
               </div>              
             </div>

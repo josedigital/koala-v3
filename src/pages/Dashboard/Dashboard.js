@@ -33,6 +33,7 @@ class Dashboard extends Component {
       message: '',
       search_visible: false,
       add_job: false,
+      edit_note: false,
       job_notes: [],
       current_note: [],
       job_details: [],
@@ -45,6 +46,7 @@ class Dashboard extends Component {
     this.deleteJob = this.deleteJob.bind(this)
     this.showHideSearch = this.showHideSearch.bind(this)
     this.showHideAddJob = this.showHideAddJob.bind(this)
+    this.showHideEditNote = this.showHideEditNote.bind(this)
     this.viewJob = this.viewJob.bind(this)
     this.saveNote = this.saveNote.bind(this)
     this.editNote = this.editNote.bind(this)
@@ -54,6 +56,7 @@ class Dashboard extends Component {
     this.getJobNote = this.getJobNote.bind(this)
     this.getJobDetails = this.getJobDetails.bind(this)
     this.logout = this.logout.bind(this)
+    this.hideMessage = this.hideMessage.bind(this)
   }
 
   static contextTypes = {
@@ -132,12 +135,17 @@ class Dashboard extends Component {
 
   deleteJob (jobId) {
     const email = this.state.profile.email
-    jobHelpers.deleteJob(email, jobId)
-      .then(function(data) {
-        this.getSavedJobs(email)
-      }.bind(this));
-
-      browserHistory.push('/dashboard');
+    if (this.props.params.jobid !== jobId) {
+      jobHelpers.deleteJob(email, jobId)
+        .then(function(data) {
+          this.getSavedJobs(email)
+        }.bind(this));
+    } else {
+      this.setState({
+        message: 'You cannot delete the job you are currently viewing.'
+      })
+    }
+      // browserHistory.push('/dashboard');
   }
 
 
@@ -212,6 +220,13 @@ class Dashboard extends Component {
     })
   }
 
+  showHideEditNote() {
+    this.setState({
+      edit_note: true,
+      search_visible: false
+    })
+  }
+
   getJobNotes (jobId) {
     console.log('getJobNotes fired')
     noteHelpers.getNotes(jobId)
@@ -235,7 +250,9 @@ class Dashboard extends Component {
   }
 
 
-
+  hideMessage () {
+    this.setState({ message: '' })
+  }
 
 
 
@@ -243,6 +260,14 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
+
+
+        { this.state.message !== '' 
+          ? <div className="animated fadeInDown message">{this.state.message} <button onClick={() => this.hideMessage() } className="Close">X</button></div> 
+          : <div className="animated fadeOutUp message">{this.state.message} <button onClick={() => this.hideMessage() } className="Close">X</button></div>
+        }
+
+
         <Header auth={this.props.auth} logout={this.logout} profile={this.state.profile} seeSearch={this.showHideSearch} addJob={this.showHideAddJob} />
         <div className="Page-wrap">
           <main role="main">
@@ -277,16 +302,31 @@ class Dashboard extends Component {
                     }
                     {
                       this.state.add_job
-                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} visible={this.showHideAddJob}classes={'Search animated fadeInDown'} />
+                        ? <CustomJob profile={this.props.profile} saveJob={this.saveJob} visible={this.showHideAddJob} classes={'Search animated fadeInDown'} />
                         : null
                     }
 
 
                     {
-                      this.props.params.noteid
-                        ? <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
-                        : <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
-                        // : <CustomJob profile={this.props.profile} saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
+                     this.props.params.noteid && this.props.params.jobid ?
+                        <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
+                      : null
+                      //this.props.params.noteid
+                        //? <NoteEditor note={this.state.current_note} jobId=//{this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
+                        //: null
+                        //---------
+                        //*<SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} />
+                    }
+
+                    {
+                      this.props.params.jobid && !this.props.params.noteid
+                        ? <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
+                        : null  
+                    }
+
+                    {
+                      !this.props.params.jobid && !this.props.params.noteid
+                        ? <SearchResults saveJob={this.saveJob} classes={'Search animated fadeInDown'} /> : null
                     }
                     
                 </div>
