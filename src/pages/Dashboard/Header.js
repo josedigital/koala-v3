@@ -34,7 +34,7 @@ const Header = ({auth, logout, profile, seeSearch, addJob}) => {
                 <div className="Cell">
                   {auth.loggedIn ? <a href='/' onClick={ () => logout() }>Logout</a> : ''}
                 </div>
-                <div className="Cell Profile">
+                <div className="Cell Profile text-center">
                   <img src={profile.picture} className="Profile__img" alt="profile picture"/> 
                   <span className="Profile__name">hello, {profile.name} </span>
                 </div>
