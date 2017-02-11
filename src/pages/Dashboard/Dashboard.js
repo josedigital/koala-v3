@@ -56,6 +56,7 @@ class Dashboard extends Component {
     this.getJobNote = this.getJobNote.bind(this)
     this.getJobDetails = this.getJobDetails.bind(this)
     this.logout = this.logout.bind(this)
+    this.hideMessage = this.hideMessage.bind(this)
   }
 
   static contextTypes = {
@@ -134,12 +135,17 @@ class Dashboard extends Component {
 
   deleteJob (jobId) {
     const email = this.state.profile.email
-    jobHelpers.deleteJob(email, jobId)
-      .then(function(data) {
-        this.getSavedJobs(email)
-      }.bind(this));
-
-      browserHistory.push('/dashboard');
+    if (this.props.params.jobid !== jobId) {
+      jobHelpers.deleteJob(email, jobId)
+        .then(function(data) {
+          this.getSavedJobs(email)
+        }.bind(this));
+    } else {
+      this.setState({
+        message: 'You cannot delete the job you are currently viewing.'
+      })
+    }
+      // browserHistory.push('/dashboard');
   }
 
 
@@ -244,7 +250,9 @@ class Dashboard extends Component {
   }
 
 
-
+  hideMessage () {
+    this.setState({ message: '' })
+  }
 
 
 
@@ -252,6 +260,14 @@ class Dashboard extends Component {
   render () {     
     return (
       <div className="Dashboard">
+
+
+        { this.state.message !== '' 
+          ? <div className="animated fadeInDown message">{this.state.message} <button onClick={() => this.hideMessage() } className="Close">X</button></div> 
+          : <div className="animated fadeOutUp message">{this.state.message} <button onClick={() => this.hideMessage() } className="Close">X</button></div>
+        }
+
+
         <Header auth={this.props.auth} logout={this.logout} profile={this.state.profile} seeSearch={this.showHideSearch} addJob={this.showHideAddJob} />
         <div className="Page-wrap">
           <main role="main">
