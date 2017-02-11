@@ -23,7 +23,7 @@ const LandingPage = ({auth}) => {
         <div className="Grid center">
           <div className="Cell six Landing__logo">
             <img src={KoalaShadow} alt="Koala app" />
-            <h1 className="uppercase">Koala</h1>
+            <h1 className="koala">Koala</h1>
             <p>
               Koala works to help you find new job opportunities and manage the details for the jobs you are interested in pursuing
             </p>
