@@ -60,6 +60,7 @@
 
   .End {
     background-color: #444;
+    background-image: url('https://josedigital.github.io/koala-site/img/end.jpeg');
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;

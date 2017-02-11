@@ -16,8 +16,8 @@ const LandingPage = ({auth}) => {
     <div>
       <div className="Landing">
       <video playsinline autoPlay muted loop poster={Splashimg} className="Landing__video" styles={lpStyles}>
-        {/*<source src={VideoWebm} type="video/webm" />
-        <source src={VideoMov} type="video/mp4" />*/}
+        <source src="https://josedigital.github.io/koala-site/img/splash1.webm" type="video/webm" />
+        <source src="https://josedigital.github.io/koala-site/img/splash1.mov" type="video/mp4" />
       </video>
       <div className="container">
         <div className="Grid center">
@@ -27,7 +27,7 @@ const LandingPage = ({auth}) => {
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis mollitia nam, quas adipisci, sapiente, eos accusantium inventore est labore molestias, cupiditate obcaecati. Tempora eum aperiam repellat laboriosam, commodi perferendis.
             </p>
-            <Login auth={auth}/>
+            <Login auth={auth} buttonText={'Get Started'} />
             <a href="#Works" className="button">How it Works</a>
           </div>
         </div>
@@ -91,7 +91,7 @@ const LandingPage = ({auth}) => {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt nisi dolorum labore, asperiores, facilis aliquid accusantium eveniet officiis est blanditiis voluptatem deleniti aliquam neque, ut consequuntur fugiat aut? Eos, quis.
             </p>
             <p className="text-center">
-              <a href="dashboard.html" className="button">Get Started!</a>
+              <Login auth={auth} buttonText={'Get Started'} />
             </p>
           </div>
         </div>
