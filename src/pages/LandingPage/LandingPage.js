@@ -23,7 +23,7 @@ const LandingPage = ({auth}) => {
         <div className="Grid center">
           <div className="Cell six Landing__logo">
             <img src={KoalaShadow} alt="Koala app" />
-            <h1 className="uppercase">Koala</h1>
+            <h1 className="koala">Koala</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis mollitia nam, quas adipisci, sapiente, eos accusantium inventore est labore molestias, cupiditate obcaecati. Tempora eum aperiam repellat laboriosam, commodi perferendis.
             </p>
