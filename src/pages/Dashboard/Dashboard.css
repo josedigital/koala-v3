@@ -76,8 +76,9 @@
   }
   .Profile__img {
     border-radius: 50%;
+    display: block;
     height: 30px;
-    margin-right: 1rem;
+    margin: 0 auto;
     width: auto;
   }
   .Profile__name {
@@ -197,6 +198,12 @@
     height: 100%;
     padding: 20px;
   }
+  .Job__link {
+    color: #fff;
+  }
+  .Job__link:hover {
+      color: rgba(255,255,255,0.8)
+    }
   .Job {
     transition: all .3s ease-in-out;
     &:hover {
