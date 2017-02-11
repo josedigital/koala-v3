@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Login from './Login';
 import AuthService from '../../utils/AuthService';
-const auth = new AuthService('YIrXpaojl2Npp8Qh5aFsczkhRtaxjUrT', 'josedigital.auth0.com');
+const auth = new AuthService('', '');
 
 // validate authentication for private routes
 const requireAuth = (nextState, replace) => {
