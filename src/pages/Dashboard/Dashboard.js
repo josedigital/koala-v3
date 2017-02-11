@@ -304,7 +304,7 @@ class Dashboard extends Component {
 
                     {
                       this.props.params.jobid && !this.props.params.noteid
-                        ? <NoteEditor note={this.state.current_note} jobId={this.props.params.jobid} editNote={this.editNote} editRefresh={this.editRefresh}/>
+                        ? <NewNote saveNote={this.saveNote} jobId={this.props.params.jobid} />
                         : null  
                     }
 
